@@ -8,15 +8,15 @@ type Props = {}
 
 const Main = (props: Props) => {
 
-    const { tasks } = useContext(TasksContext) as TaskContextType
+    const { currentTasks } = useContext(TasksContext) as TaskContextType
 
     return (
         <Container maxW='none' w='100%' bgColor='layoutBg' m='20px' borderRadius='20px'>
 
                 <SimpleGrid  minChildWidth='200px' spacing={8} p='30px'>
-                    {!tasks.length && <h1> no tasks</h1>}
-                    {tasks &&
-                        tasks.map((task: ITask) => {
+                    {!currentTasks.length && <h1> no tasks</h1>}
+                    {currentTasks &&
+                        currentTasks.map((task: ITask) => {
                             return (
                                 <TaskCard task={task} key={task.id} />
                             )

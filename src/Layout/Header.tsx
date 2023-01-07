@@ -4,17 +4,22 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {
   faList,
   faListCheck,
-  faPlus
+  faPlus,
+  faList12
 } from '@fortawesome/free-solid-svg-icons'
-import React from 'react'
+import React, { useContext } from 'react'
 import EuImg from '../imgs/euimg.jpeg'
 import FormModal from '../Components/FormModal'
+import { TaskContextType } from '../types/Task'
+import { TasksContext } from '../Contexts/TaskContext'
+
 type Props = {}
 
 const Header = (props: Props) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const { defineCurrentTasks } = useContext(TasksContext) as TaskContextType
 
   return (
     <Flex w='20vw' minW='250px' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column'>
@@ -24,25 +29,35 @@ const Header = (props: Props) => {
       </Flex>
       <Divider />
       <VStack my='50px' spacing={6}>
-        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'>
+        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'
+          onClick={() => { defineCurrentTasks('AllTasks') }}
+        >
           <FontAwesomeIcon icon={faList as IconProp} color='#d1d1d1' fontSize='20px' />
           <Text fontWeight='bold' color='txtColor' ml='10px'>All tasks</Text>
         </Flex>
-        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'>
+        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'
+          onClick={() => { defineCurrentTasks('doneTasks') }}
+        >
           <FontAwesomeIcon icon={faListCheck as IconProp} color='#d1d1d1' fontSize='20px' />
           <Text fontWeight='bold' color='txtColor' ml='10px'>Done tasks</Text>
+        </Flex>
+        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'
+          onClick={() => { defineCurrentTasks('pendingTasks') }}
+        >
+          <FontAwesomeIcon icon={faList12 as IconProp} color='#d1d1d1' fontSize='20px' />
+          <Text fontWeight='bold' color='txtColor' ml='10px'>Pending Tasks</Text>
         </Flex>
         <Divider />
         <Text fontWeight='bold' color='txtColor' ml='10px'>Create a new Task for Today</Text>
 
         <Center w='90%' h='100px' bgColor='compBg' px='20px' py='10px' borderRadius='10px'
           onClick={() => onOpen()}>
-       
+
           <FontAwesomeIcon icon={faPlus as IconProp} color='#d1d1d1' fontSize='20px' />
         </Center>
       </VStack>
 
-      <FormModal open={isOpen} close={onClose}/>
+      <FormModal open={isOpen} close={onClose} />
     </Flex>
 
   )
