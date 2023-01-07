@@ -14,6 +14,7 @@ const Main = (props: Props) => {
         <Container maxW='none' w='100%' bgColor='layoutBg' m='20px' borderRadius='20px'>
 
                 <SimpleGrid  minChildWidth='200px' spacing={8} p='30px'>
+                    {!tasks.length && <h1> no tasks</h1>}
                     {tasks &&
                         tasks.map((task: ITask) => {
                             return (
