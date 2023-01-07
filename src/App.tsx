@@ -1,6 +1,6 @@
 import * as React from "react"
 import { LightTheme } from './Themes/LightTheme'
-
+import './App.css'
 import {
   Box,
   ChakraProvider,
@@ -12,23 +12,26 @@ import Main from "./Layout/Main"
 import { TasksContext, TasksProvider } from "./Contexts/TaskContext"
 
 export const App = () => (
-  <ChakraProvider theme={LightTheme}>
-    <TasksProvider>
-      <Container 
-       maxW='none'
-       w='100%'
-       h='100%'
-       bgColor='desktopBg' 
-       m='0'
-       p='0'
-       display='flex'
-       >
+  <div className="App">
+    <ChakraProvider theme={LightTheme}>
+      <TasksProvider>
+        <Container
+          maxW='none'
+          w='100%'
+          minH='100vh'
+          bgColor='desktopBg'
+          m='0'
+          p='0'
+          display='flex'
+        >
 
-        <Header />
-        <Main />
+          <Header />
+          <Main />
 
-      </Container>
-    </TasksProvider>
+        </Container>
+      </TasksProvider>
 
-  </ChakraProvider>
+    </ChakraProvider>
+  </div>
+
 )

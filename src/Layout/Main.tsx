@@ -12,11 +12,10 @@ const Main = (props: Props) => {
     const { tasks } = useContext(TasksContext) as TaskContextType
 
     return (
-        <Container maxW='none' w='60vw' bgColor='layoutBg' minH='100vh'>
-            <Flex w='100%' h='100%' py='30px' alignItems='flex-start' justifyContent='space-between' flexDirection='column'>
-                <AddForm />
+        <Container maxW='none' w='100%' bgColor='layoutBg' m='20px' borderRadius='20px'>
+                {/* <AddForm /> */}
 
-                <Flex flexDirection='column' w='100%'>
+                <SimpleGrid columns={4} spacing={8} p='30px'>
                     {tasks &&
                         tasks.map((task: ITask) => {
                             return (
@@ -24,12 +23,13 @@ const Main = (props: Props) => {
                             )
                         })
                     }
-                </Flex>
-
-
-            </Flex>
+                </SimpleGrid>
         </Container>
     )
 }
 
 export default Main
+
+
+
+//                 

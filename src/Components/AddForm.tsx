@@ -38,8 +38,8 @@ const AddForm = (props: Props) => {
                 <Input variant='filled' onChange={handleForm} id="title" isRequired />
                 <Spacer />
 
-                <Text color='compBg' fontSize='xl'>Task Difficulty</Text>
-                <Input variant='filled' type='number' onChange={handleForm} id="difficulty" isRequired/>
+                <Text color='compBg' fontSize='xl'>Task Description</Text>
+                <Input variant='filled' onChange={handleForm} id="difficulty" isRequired/>
 
                 <Spacer />
 
