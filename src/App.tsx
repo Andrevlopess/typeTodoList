@@ -7,7 +7,6 @@ import {
   Container,
 } from "@chakra-ui/react"
 import Header from "./Layout/Header"
-import AddForm from "./Components/AddForm"
 import Main from "./Layout/Main"
 import { TasksContext, TasksProvider } from "./Contexts/TaskContext"
 

@@ -12,6 +12,9 @@ export const LightTheme  = extendTheme({
         descColor: '#B2B2B2',
         compBg: '#242424',
         txtColor: '#D9D9D9'
+    },
+    fonts:{
+        inter: "'Inter', sans-serif"
     }
 
 })
