@@ -9,6 +9,7 @@ import {
     PopoverArrow,
     PopoverCloseButton,
     PopoverAnchor,
+    Heading,
 } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import TaskCard from '../Components/TaskCard'
@@ -23,7 +24,10 @@ const Main = (props: Props) => {
 
     return (
         <Container maxW='none' w='100%' bgColor='layoutBg' m='20px' borderRadius='20px'>
-            <Flex w='100%' justifyContent='flex-end' my='20px'>
+            <Flex w='100%' justifyContent='space-between' my='20px' alignItems='center'p='10px'>
+
+                <Heading fontWeight='bold' color='txtColor' size='3xl'>My tasks</Heading>
+
                 {!!currentTasks.length &&
                     <Popover placement='left-start'>
                         <PopoverTrigger>
@@ -54,6 +58,7 @@ const Main = (props: Props) => {
                     })
                 }
             </SimpleGrid>
+            
         </Container>
     )
 }

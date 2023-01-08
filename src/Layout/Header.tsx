@@ -48,6 +48,7 @@ const Header = (props: Props) => {
           <Text color='grey'>{`(${getAllTasks().length})`}</Text>
         </Flex>
         <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'
+        justifyContent='space-between'
           onClick={() => { defineCurrentTasks('doneTasks') }}
         >
           <Flex alignItems='center'>
@@ -59,7 +60,7 @@ const Header = (props: Props) => {
           <Text color='grey'>{`(${getDoneTasks().length})`}</Text>
 
         </Flex>
-        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'
+        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
           onClick={() => { defineCurrentTasks('pendingTasks') }}
         >
           <Flex alignItems='center'>
