@@ -24,7 +24,7 @@ const Main = (props: Props) => {
 
     return (
         <Container maxW='none' w='100%' bgColor='layoutBg' m='20px' borderRadius='20px'>
-            <Flex w='100%' justifyContent='space-between' my='20px' alignItems='center'p='10px'>
+            <Flex w='100%' justifyContent='space-between' my='20px' alignItems='center' p='10px'>
 
                 <Heading fontWeight='bold' color='txtColor' size='3xl'>My tasks</Heading>
 
@@ -48,8 +48,13 @@ const Main = (props: Props) => {
 
 
             </Flex>
+            {!currentTasks.length &&
+                <Center mt='200px' >
+                    <Heading color='txtColor'>You have no tasks for today</Heading>
+                </Center>
+            }
             <SimpleGrid minChildWidth='200px' spacing={8} p='30px'>
-                {!currentTasks.length && <h1> no tasks</h1>}
+
                 {currentTasks &&
                     currentTasks.map((task: ITask) => {
                         return (
@@ -58,7 +63,7 @@ const Main = (props: Props) => {
                     })
                 }
             </SimpleGrid>
-            
+
         </Container>
     )
 }

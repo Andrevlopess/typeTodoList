@@ -30,7 +30,7 @@ const Header = (props: Props) => {
 
   return (
     <Flex w='20vw' minW='250px' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column'>
-      <Flex w='100%' h='10%' px='10px' alignItems='center' >
+      <Flex w='100%' p='10px' alignItems='center' >
         <Avatar name='dedeLopes' src={EuImg} />
         <Text color='txtColor' mx='10px'>Andre V Lopes</Text>
       </Flex>
@@ -48,7 +48,7 @@ const Header = (props: Props) => {
           <Text color='grey'>{`(${getAllTasks().length})`}</Text>
         </Flex>
         <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'
-        justifyContent='space-between'
+          justifyContent='space-between'
           onClick={() => { defineCurrentTasks('doneTasks') }}
         >
           <Flex alignItems='center'>
@@ -74,12 +74,31 @@ const Header = (props: Props) => {
         <Divider />
         <Text fontWeight='bold' color='txtColor' ml='10px'>Create a new Task for Today</Text>
 
-        <Center w='90%' h='100px' bgColor='compBg' px='20px' py='10px' borderRadius='10px'
+        <Center w='90%' h='100px' bgColor='txtColor' px='20px' py='10px' borderRadius='10px'
           onClick={() => onOpen()}>
 
-          <FontAwesomeIcon icon={faPlus as IconProp} color='#d1d1d1' fontSize='20px' />
+          <FontAwesomeIcon icon={faPlus as IconProp} color='#292929' fontSize='20px' />
         </Center>
       </VStack>
+      <Divider/>
+      <Flex flexDirection='column' justifyContent='center' w='100%' mb='30px' px='10px'>
+        {!!getAllTasks().length &&
+          getAllTasks().map((task) => {
+            return (
+              <Box key={task.id}>
+                <Flex p='10px' alignItems='baseline' >
+                  <Text color='txtColor' fontSize='2xl'>{getAllTasks().findIndex(tsk => tsk.id === task.id) + 1}</Text>
+                  <Text color='txtColor' px='10px' w='90%'>{task.title}</Text>
+                </Flex>
+
+                <Divider />
+              </Box>
+
+            )
+          })
+
+        }
+      </Flex>
 
       <FormModal open={isOpen} close={onClose} />
     </Flex>
