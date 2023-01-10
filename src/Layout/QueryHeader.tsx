@@ -34,8 +34,8 @@ const QueryHeader = (props: Props) => {
                 <Avatar name='Andre v Lopes' src={EuImg} size='lg' />
                 <Text color='txtColor' fontWeight='bold' ml='10px' fontSize='2xl'>Andre V Lopes</Text>
             </Flex>
-            <Flex w='100%'>
-                <SimpleGrid columns={2} spacing={2}>
+            <Flex w='100%' alignItems='center' justifyContent='center'>
+                <SimpleGrid columns={2} spacing={4}>
 
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
                         onClick={() => { defineCurrentTasks('AllTasks') }}
@@ -71,7 +71,7 @@ const QueryHeader = (props: Props) => {
                     </Flex>
                 </SimpleGrid>
             </Flex>
-            <Center w='100%' h='100px' bgColor='desktopBg' px='20px' my='10px' borderRadius='10px'
+            <Center w='100%' h='100px' bgColor='desktopBg' px='20px' my='20px' borderRadius='10px'
                 onClick={() => onOpen()}>
 
                 <FontAwesomeIcon icon={faPlus as IconProp} color='white' fontSize='20px' />
