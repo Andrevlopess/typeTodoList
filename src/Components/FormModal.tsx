@@ -23,7 +23,6 @@ import { ITask, TaskContextType } from "../types/Task";
 import CardColorInput from "./ColorInput";
 
 
-
 type Props = {
   close: () => void;
   open: boolean;
@@ -65,7 +64,7 @@ const FormModal = ({ open, close }: Props) => {
 
 
   return (
-    <Modal isCentered isOpen={open} onClose={close}>
+    <Modal scrollBehavior="outside" isOpen={open} onClose={close}>
       <ModalOverlay
         bg="blackAlpha.300"
         backdropFilter="blur(6px) hue-rotate(5deg)"

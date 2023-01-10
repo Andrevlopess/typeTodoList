@@ -11,6 +11,9 @@ import {
     PopoverAnchor,
     Heading,
 } from '@chakra-ui/react'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import {faTrash} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext } from 'react'
 import TaskCard from '../Components/TaskCard'
 import { TasksContext } from '../Contexts/TaskContext'
@@ -29,9 +32,11 @@ const Main = (props: Props) => {
                 <Heading fontWeight='bold' color='txtColor' size='3xl'>My tasks</Heading>
 
                 {!!currentTasks.length &&
-                    <Popover placement='left-start'>
+                    <Popover placement='bottom-start'>
                         <PopoverTrigger>
-                            <Button bgColor='compBg' color='txtColor' _hover={{ color: 'compBg', bgColor: 'txtColor' }}>Clear tasks</Button>
+                            <Button bgColor='compBg' color='txtColor' _hover={{ color: 'compBg', bgColor: 'txtColor' }}>
+                            <FontAwesomeIcon icon={faTrash as IconProp}/>
+                            </Button>
                         </PopoverTrigger>
                         <PopoverContent bgColor='compBg' color='txtColor' border='none'>
                             <PopoverArrow />
@@ -40,7 +45,9 @@ const Main = (props: Props) => {
                             <PopoverBody>
                                 <Button bgColor='txtColor' color='compBg' w='100%'
                                     _hover={{ color: 'txtColor', bgColor: 'compBg' }}
-                                    onClick={clearTasks} >Clear tasks</Button>
+                                    onClick={clearTasks} >
+                                        <FontAwesomeIcon icon={faTrash as IconProp}/>
+                                    </Button>
                             </PopoverBody>
                         </PopoverContent>
                     </Popover>
