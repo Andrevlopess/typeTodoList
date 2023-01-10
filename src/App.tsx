@@ -6,6 +6,7 @@ import {
   ChakraProvider,
   Container,
   Flex,
+  Image,
   Show,
   useMediaQuery,
 } from "@chakra-ui/react"
@@ -27,7 +28,7 @@ export const App = () => (
           m='0'
           p='0'
         >
-          <Flex flexWrap='wrap'>
+          <Flex>
             <Show breakpoint="(min-width: 500px)">
               <Header />
             </Show>
