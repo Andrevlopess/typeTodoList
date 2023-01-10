@@ -5,7 +5,9 @@ import {
   faList,
   faListCheck,
   faPlus,
-  faList12
+  faList12,
+  faCircleExclamation,
+  faC
 } from '@fortawesome/free-solid-svg-icons'
 import React, { useContext } from 'react'
 import EuImg from '../imgs/euimg.jpeg'
@@ -23,7 +25,8 @@ const Header = (props: Props) => {
     defineCurrentTasks,
     getAllTasks,
     getDoneTasks,
-    getPendingTasks
+    getPendingTasks,
+    getImportantTasks
   } = useContext(TasksContext) as TaskContextType
 
 
@@ -71,6 +74,18 @@ const Header = (props: Props) => {
 
           <Text color='grey'>{`(${getPendingTasks().length})`}</Text>
         </Flex>
+
+        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
+          onClick={() => { defineCurrentTasks('ImportantTasks') }}
+        >
+          <Flex alignItems='center'>
+            <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='20px' />
+            <Text fontWeight='bold' color='txtColor' ml='10px'>Important Tasks</Text>
+          </Flex>
+
+
+          <Text color='grey'>{`(${getImportantTasks().length})`}</Text>
+        </Flex>
         <Divider />
         <Text fontWeight='bold' color='txtColor' ml='10px'>Create a new Task for Today</Text>
 
@@ -80,15 +95,19 @@ const Header = (props: Props) => {
           <FontAwesomeIcon icon={faPlus as IconProp} color='#292929' fontSize='20px' />
         </Center>
       </VStack>
-      <Divider/>
+      <Divider />
       <Flex flexDirection='column' justifyContent='center' w='100%' mb='30px' px='10px'>
         {!!getAllTasks().length &&
           getAllTasks().map((task) => {
             return (
               <Box key={task.id}>
-                <Flex p='10px' alignItems='baseline' >
+                <Flex p='10px' alignItems='baseline'  >
+
                   <Text color='txtColor' fontSize='2xl'>{getAllTasks().findIndex(tsk => tsk.id === task.id) + 1}</Text>
                   <Text color='txtColor' px='10px' w='90%'>{task.title}</Text>
+                  {task.type === "Important" &&
+                    <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='20px' />
+                  }
                 </Flex>
 
                 <Divider />
