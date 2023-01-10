@@ -28,11 +28,11 @@ export const App = () => (
           p='0'
         >
           <Flex flexWrap='wrap'>
-            <Show breakpoint="(min-width: 400px)">
+            <Show breakpoint="(min-width: 500px)">
               <Header />
             </Show>
 
-            <Show breakpoint="(max-width: 400px)">
+            <Show breakpoint="(max-width: 500px)">
               <QueryHeader />
             </Show>
 
