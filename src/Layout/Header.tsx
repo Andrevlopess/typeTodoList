@@ -56,7 +56,7 @@ const Header = (props: Props) => {
         >
           <Flex alignItems='center'>
             <FontAwesomeIcon icon={faListCheck as IconProp} color='#d1d1d1' fontSize='20px' />
-            <Text fontWeight='bold' color='txtColor' ml='10px'>Done tasks</Text>
+            <Text fontWeight='bold' color='txtColor' ml='10px'>Done Tasks</Text>
           </Flex>
 
 

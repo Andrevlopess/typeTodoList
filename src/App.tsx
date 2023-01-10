@@ -5,12 +5,17 @@ import {
   Box,
   ChakraProvider,
   Container,
+  Flex,
+  Show,
+  useMediaQuery,
 } from "@chakra-ui/react"
 import Header from "./Layout/Header"
 import Main from "./Layout/Main"
 import { TasksContext, TasksProvider } from "./Contexts/TaskContext"
+import QueryHeader from "./Layout/QueryHeader"
 
 export const App = () => (
+
   <div className="App">
     <ChakraProvider theme={LightTheme}>
       <TasksProvider>
@@ -21,11 +26,20 @@ export const App = () => (
           bgColor='desktopBg'
           m='0'
           p='0'
-          display='flex'
         >
+          <Flex flexWrap='wrap'>
+            <Show breakpoint="(min-width: 400px)">
+              <Header />
+            </Show>
 
-          <Header />
-          <Main />
+            <Show breakpoint="(max-width: 400px)">
+              <QueryHeader />
+            </Show>
+
+            <Main />
+          </Flex>
+
+
 
         </Container>
       </TasksProvider>
