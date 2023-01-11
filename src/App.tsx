@@ -6,8 +6,10 @@ import {
   ChakraProvider,
   Container,
   Flex,
+  Grid,
   Image,
   Show,
+  SimpleGrid,
   useMediaQuery,
 } from "@chakra-ui/react"
 import Header from "./Layout/Header"
@@ -28,17 +30,24 @@ export const App = () => (
           m='0'
           p='0'
         >
-          <Flex>
-            <Show breakpoint="(min-width: 500px)">
+
+          <Show breakpoint="(min-width: 500px)">
+            <Flex w='100%'>
               <Header />
-            </Show>
+              <Main />
+            </Flex>
 
-            <Show breakpoint="(max-width: 500px)">
+          </Show>
+
+          <Show breakpoint="(max-width: 500px)">
+            <Flex w='100%' flexWrap='wrap'>
               <QueryHeader />
-            </Show>
+              <Main />
+            </Flex>
 
-            <Main />
-          </Flex>
+          </Show>
+
+
 
 
 
