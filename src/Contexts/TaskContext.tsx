@@ -1,8 +1,9 @@
 
-import { getDocs } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
-import { TasksCollectionRef } from "../Services/Firebase";
+import { db, TasksCollectionRef } from "../Services/Firebase";
 import { AuthContextType, ITask, TaskContextType } from "../types/Task";
 import { AuthContext } from "./Auth/AuthContext";
 
@@ -11,25 +12,28 @@ export const TasksContext = createContext<TaskContextType | null>(null);
 export const TasksProvider = ({ children }: { children: JSX.Element }) => {
 
 
+
   const { user } = useContext(AuthContext) as AuthContextType
-  const [tasksList, setTasksList] = useState<ITask[]>([])
+
+  const [tasks, setTasks] = useState<ITask[]>([])
+
+
+  const q = query(collection(db, "Tasks"), where("done", "==", false ));
 
  
-  async function getTasks() {
-
-    const data = await getDocs(TasksCollectionRef);
-    const tasks = data.docs.filter((doc) => ({ ...doc.data(), id: doc.id }))
-    
-  };
-
-  if (user.uid) {
-    console.log(tasksList);
-    
-  }
-
-
-
-
+  useEffect(() => {
+    const getDocuments = async () => {
+      const q = query(collection(db, "Tasks"), where("done", "==", false));
+  
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.data());
+      });
+    }
+  
+    getDocuments()
+  }, [])
 
 
   const getAllTasks = () => {
@@ -67,7 +71,7 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     return pendingTasks;
   }
 
-  const [tasks, setTasks] = useState<ITask[]>(getAllTasks());
+
   const [currentTasks, setCurrentTasks] = useState<ITask[]>(tasks);
 
   useEffect(() => {
