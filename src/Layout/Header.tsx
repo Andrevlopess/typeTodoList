@@ -7,10 +7,9 @@ import {
   faPlus,
   faList12,
   faCircleExclamation,
-  faC
 } from '@fortawesome/free-solid-svg-icons'
 import React, { useContext } from 'react'
-import EuImg from '../imgs/euimg.jpeg'
+
 import FormModal from '../Components/FormModal'
 import { TaskContextType } from '../types/Task'
 import { TasksContext } from '../Contexts/TaskContext'
@@ -34,7 +33,7 @@ const Header = (props: Props) => {
   return (
     <Flex w='20vw' minW='250px' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column'>
       <Flex w='100%' p='10px' alignItems='center' >
-        <Avatar name='dedeLopes' src={EuImg} />
+        <Avatar name='dedeLopes' />
         <Text color='txtColor' mx='10px'>Andre V Lopes</Text>
       </Flex>
       <Divider />

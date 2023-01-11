@@ -10,7 +10,7 @@ import {
     faC
 } from '@fortawesome/free-solid-svg-icons'
 import React, { useContext } from 'react'
-import EuImg from '../imgs/euimg.jpeg'
+
 import FormModal from '../Components/FormModal'
 import { TaskContextType } from '../types/Task'
 import { TasksContext } from '../Contexts/TaskContext'
@@ -31,7 +31,7 @@ const QueryHeader = (props: Props) => {
         <Flex w='100%' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column' alignItems='center'
      p='10px' >
             <Flex alignItems='center' py='40px' justifyContent='space-between'>
-                <Avatar name='Andre v Lopes' src={EuImg} size='lg' />
+                <Avatar name='Andre v Lopes' size='lg' />
                 <Text color='txtColor' fontWeight='bold' ml='10px' fontSize='2xl'>Andre V Lopes</Text>
             </Flex>
             <Flex w='100%' alignItems='center' justifyContent='center'>
