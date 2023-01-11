@@ -11,8 +11,9 @@ import {
 import React, { useContext } from 'react'
 
 import FormModal from '../Components/FormModal'
-import { TaskContextType } from '../types/Task'
+import { AuthContextType, TaskContextType } from '../types/Task'
 import { TasksContext } from '../Contexts/TaskContext'
+import { AuthContext } from '../Contexts/Auth/AuthContext'
 
 type Props = {}
 
@@ -28,13 +29,15 @@ const Header = (props: Props) => {
     getImportantTasks
   } = useContext(TasksContext) as TaskContextType
 
+  const {user} = useContext(AuthContext) as AuthContextType
 
-
+  console.log(user.photoURL);
+  
   return (
     <Flex w='20vw' minW='250px' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column'>
       <Flex w='100%' p='10px' alignItems='center' >
-        <Avatar name='dedeLopes' />
-        <Text color='txtColor' mx='10px'>Andre V Lopes</Text>
+        <Avatar name={`${user.displayName}`} src={`${user.photoURL}`}/>
+        <Text color='txtColor' mx='10px'>{user.displayName}</Text>
       </Flex>
       <Divider />
       <VStack my='50px' spacing={6}>

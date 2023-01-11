@@ -1,3 +1,5 @@
+import { User } from "firebase/auth";
+
 export interface ITask {
     id: number;
     title: string;
@@ -22,4 +24,9 @@ export type TaskContextType = {
     deleteTask: (id: number) => void;
     defineCurrentTasks: (taskStatus: "AllTasks" | "doneTasks" | "pendingTasks" | "ImportantTasks") => void;
     clearTasks: () => void;
+}
+
+export type AuthContextType = {
+    user: User;
+    signInWithGoogle: () => void
 }
