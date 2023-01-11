@@ -16,11 +16,10 @@ import {
   useRadioGroup,
   forwardRef,
 } from "@chakra-ui/react";
-import { Formik, Form, Field } from "formik";
-import { TasksContext } from "../Contexts/TaskContext";
-import { ITask, TaskContextType } from "../types/Task";
-
+import { AuthContextType, ITask, TaskContextType } from "../types/Task";
 import CardColorInput from "./ColorInput";
+import { AuthContext } from "../Contexts/Auth/AuthContext";
+import useTasks from "../Hooks/useTask";
 
 
 type Props = {
@@ -29,13 +28,16 @@ type Props = {
 };
 
 const FormModal = ({ open, close }: Props) => {
-  const { saveTasks } = useContext(TasksContext) as TaskContextType;
+
+  const {user} = useContext(AuthContext) as AuthContextType
+
 
   const [taskTitle, setTaskTitle] = useState<string>("")
   const [taskDescription, setTaskDescription] = useState<string>("")
   const [cardColor, setCardColor] = useState<string>("");
   const [taskType, setTaskType] = useState<string>("Normal");
 
+  const [saveTasks] = useTasks()
 
   const handleForm = (): ITask => {
 
@@ -46,6 +48,7 @@ const FormModal = ({ open, close }: Props) => {
       done: false,
       type: taskType,
       color: cardColor,
+      userId: user.uid ? user.uid : "no user id task"
     });
 
     setTaskTitle("")
@@ -54,6 +57,7 @@ const FormModal = ({ open, close }: Props) => {
 
     return taskData
   };
+
 
 
   const handleSaveTodo = (e: React.FormEvent) => {
@@ -158,7 +162,7 @@ const FormModal = ({ open, close }: Props) => {
               color="txtColor"
               borderRadius="10px"
               type="submit"
-              
+
             >
               Create
             </Button>

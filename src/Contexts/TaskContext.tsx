@@ -1,11 +1,37 @@
-import { log } from "console";
-import { createContext, useEffect, useState } from "react";
-import { TextSpan } from "typescript";
-import { ITask, TaskContextType } from "../types/Task";
+
+import { getDocs } from "firebase/firestore";
+import { createContext, useContext, useEffect, useState } from "react";
+
+import { TasksCollectionRef } from "../Services/Firebase";
+import { AuthContextType, ITask, TaskContextType } from "../types/Task";
+import { AuthContext } from "./Auth/AuthContext";
 
 export const TasksContext = createContext<TaskContextType | null>(null);
 
 export const TasksProvider = ({ children }: { children: JSX.Element }) => {
+
+
+  const { user } = useContext(AuthContext) as AuthContextType
+  const [tasksList, setTasksList] = useState<ITask[]>([])
+
+ 
+  async function getTasks() {
+
+    const data = await getDocs(TasksCollectionRef);
+    const tasks = data.docs.filter((doc) => ({ ...doc.data(), id: doc.id }))
+    
+  };
+
+  if (user.uid) {
+    console.log(tasksList);
+    
+  }
+
+
+
+
+
+
   const getAllTasks = () => {
     const savedTasks: ITask[] = JSON.parse(
       localStorage.getItem("tasks") || "[]"
@@ -16,6 +42,7 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
       return [];
     }
   };
+
   const getDoneTasks = (): ITask[] => {
     const savedTasks: ITask[] = JSON.parse(
       localStorage.getItem("tasks") || "[]"
@@ -49,24 +76,9 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
   }, [tasks]);
 
   const saveTasks = (task: ITask) => {
-
     const gotTask: ITask[] = getAllTasks();
-
-    console.log(task);
-
-    const newTask: ITask = {
-      id: task.id,
-      title: task.title,
-      description: task.description,
-      done: false,
-      type: task.type,
-      color: task.color,
-    };
-
-    gotTask.push(newTask);
-
-    localStorage.setItem("tasks", JSON.stringify(gotTask));
-    setTasks([...tasks, newTask]);
+    gotTask.push(task);
+    setTasks([...tasks, task]);
   };
 
   const concludeTasks = (id: number) => {

@@ -7,7 +7,7 @@ export interface ITask {
     done: boolean;
     type: string;
     color: string;
-
+    userId: string;
 }
 
 export type TaskContextType = {
