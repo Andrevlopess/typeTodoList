@@ -1,7 +1,7 @@
 
-import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, where, onSnapshot, doc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import useTasks from "../Hooks/useTask";
 
 import { db, TasksCollectionRef } from "../Services/Firebase";
 import { AuthContextType, ITask, TaskContextType } from "../types/Task";
@@ -17,35 +17,23 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
 
   const [tasks, setTasks] = useState<ITask[]>([])
 
+  const [saveTasks] = useTasks()
 
-  const q = query(collection(db, "Tasks"), where("done", "==", false ));
+  async function getCities() {
+    const citiesCol = query(collection(db, 'Tasks'));
+    const citySnapshot = await getDocs(citiesCol);
+    const cityList = citySnapshot.docs.map(doc => doc.data());
+    return cityList as ITask[];
+  }
 
- 
+
   useEffect(() => {
-    const getDocuments = async () => {
-      const q = query(collection(db, "Tasks"), where("done", "==", false));
-  
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.data());
-      });
-    }
-  
-    getDocuments()
-  }, [])
 
-
-  const getAllTasks = () => {
-    const savedTasks: ITask[] = JSON.parse(
-      localStorage.getItem("tasks") || "[]"
-    );
-    if (savedTasks) {
-      return savedTasks;
-    } else {
-      return [];
+    if (Object.keys(user).length > 0) {
+      getCities().then(data => setTasks(data))
     }
-  };
+  }, [user, saveTasks])
+
 
   const getDoneTasks = (): ITask[] => {
     const savedTasks: ITask[] = JSON.parse(
@@ -79,11 +67,6 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const saveTasks = (task: ITask) => {
-    const gotTask: ITask[] = getAllTasks();
-    gotTask.push(task);
-    setTasks([...tasks, task]);
-  };
 
   const concludeTasks = (id: number) => {
     tasks.filter((task: ITask) => {
@@ -119,7 +102,7 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     } else if (taskStatus === "pendingTasks") {
       setCurrentTasks(getPendingTasks());
     } else if (taskStatus === "AllTasks") {
-      setCurrentTasks(getAllTasks());
+      setCurrentTasks(tasks);
     } else if (taskStatus === "ImportantTasks") {
       setCurrentTasks(getImportantTasks());
     }
@@ -132,11 +115,9 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     <TasksContext.Provider
       value={{
         currentTasks,
-        getAllTasks,
         getDoneTasks,
         getPendingTasks,
         getImportantTasks,
-        saveTasks,
         updateTasks,
         concludeTasks,
         deleteTask,

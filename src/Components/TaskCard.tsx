@@ -17,7 +17,7 @@ type Props = {
 }
 const TaskCard = ({ task }: Props) => {
 
-    const { concludeTasks, deleteTask, getAllTasks } = useContext(TasksContext) as TaskContextType
+    const { concludeTasks, deleteTask, currentTasks } = useContext(TasksContext) as TaskContextType
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     function handleConcludeTask(id: number) {
@@ -37,7 +37,7 @@ const TaskCard = ({ task }: Props) => {
                 <CardBody>
 
                     <Flex alignItems='flex-start' justifyContent='space-between'>
-                        <Text color='txtColor' fontSize='4xl'>{getAllTasks().findIndex(tsk => tsk.id === task.id) + 1}</Text>
+                        <Text color='txtColor' fontSize='4xl'>{currentTasks.findIndex(tsk => tsk.id === task.id) + 1}</Text>
                         {task.type === "Important" &&
 
                             <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='25px' />

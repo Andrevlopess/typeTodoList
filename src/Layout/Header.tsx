@@ -23,20 +23,17 @@ const Header = (props: Props) => {
 
   const {
     defineCurrentTasks,
-    getAllTasks,
     getDoneTasks,
     getPendingTasks,
     getImportantTasks
   } = useContext(TasksContext) as TaskContextType
 
-  const {user} = useContext(AuthContext) as AuthContextType
+  const { user } = useContext(AuthContext) as AuthContextType
 
-  console.log(user.photoURL);
-  
   return (
     <Flex w='20vw' minW='250px' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column'>
       <Flex w='100%' p='10px' alignItems='center' >
-        <Avatar name={`${user.displayName}`} src={`${user.photoURL}`}/>
+        <Avatar name={`${user.displayName}`} src={`${user.photoURL}`} />
         <Text color='txtColor' mx='10px'>{user.displayName}</Text>
       </Flex>
       <Divider />
@@ -50,7 +47,7 @@ const Header = (props: Props) => {
             <Text fontWeight='bold' color='txtColor' ml='10px'>All tasks</Text>
           </Flex>
 
-          <Text color='grey'>{`(${getAllTasks().length})`}</Text>
+          <Text color='grey'>{`(99)`}</Text>
         </Flex>
         <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'
           justifyContent='space-between'
@@ -99,7 +96,7 @@ const Header = (props: Props) => {
       </VStack>
       <Divider />
       <Flex flexDirection='column' justifyContent='center' w='100%' mb='30px' px='10px'>
-        {!!getAllTasks().length &&
+        {/* {!!getAllTasks().length &&
           getAllTasks().map((task) => {
             return (
               <Box key={task.id}>
@@ -118,7 +115,7 @@ const Header = (props: Props) => {
             )
           })
 
-        }
+        } */}
       </Flex>
 
       <FormModal open={isOpen} close={onClose} />

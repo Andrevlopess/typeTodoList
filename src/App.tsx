@@ -17,8 +17,7 @@ export const App = () => (
       <AuthProvider>
         <TasksProvider>
           <Routes>
-            <Route path='/' element={<LoginPage />} />
-            <Route path='/tasks' element={<RequireAuth><TasksPage/></RequireAuth>} />
+            <Route path='/' element={<RequireAuth><TasksPage/></RequireAuth>} />
           </Routes>
         </TasksProvider>
       </AuthProvider>

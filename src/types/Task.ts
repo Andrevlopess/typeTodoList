@@ -13,12 +13,10 @@ export interface ITask {
 export type TaskContextType = {
     currentTasks: ITask[];
 
-    getAllTasks(): ITask[];
     getDoneTasks(): ITask[];
     getPendingTasks(): ITask[];   
     getImportantTasks(): ITask[];
-
-    saveTasks: (task: ITask) => void;
+    
     updateTasks: (id: number, upTask: ITask) => void;
     concludeTasks: (id: number) => void;
     deleteTask: (id: number) => void;
