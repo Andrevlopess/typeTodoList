@@ -1,9 +1,8 @@
 
-import { collection, getDocs, limit, orderBy, query, where, onSnapshot, doc } from "firebase/firestore";
+import { dblClick } from "@testing-library/user-event/dist/types/setup/directApi";
+import { collection, getDocs, limit, orderBy, query, where, onSnapshot, doc, addDoc, updateDoc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
-import useTasks from "../Hooks/useTask";
-
-import { db, TasksCollectionRef } from "../Services/Firebase";
+import { auth, db, TasksCollectionRef } from "../Services/Firebase";
 import { AuthContextType, ITask, TaskContextType } from "../types/Task";
 import { AuthContext } from "./Auth/AuthContext";
 
@@ -13,26 +12,72 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
 
 
 
-  const { user } = useContext(AuthContext) as AuthContextType
+  const { currentUser } = useContext(AuthContext) as AuthContextType
+
+  // * //////////////////////////////////////////////////////////////////////////////////////////////////  
 
   const [tasks, setTasks] = useState<ITask[]>([])
 
-  const [saveTasks] = useTasks()
 
-  async function getCities() {
-    const citiesCol = query(collection(db, 'Tasks'));
-    const citySnapshot = await getDocs(citiesCol);
-    const cityList = citySnapshot.docs.map(doc => doc.data());
-    return cityList as ITask[];
+  async function getTasks() {
+    if (currentUser) {
+
+      const TasksCol =
+        query(collection(db, 'Tasks'),
+          where("userId", "==", currentUser.uid));
+
+      const tasksSnapshot = await getDocs(TasksCol);
+      const taskList = tasksSnapshot.docs.map(doc => doc.data());
+
+      if (taskList) {
+        return taskList as ITask[];
+      } else {
+        return [] as ITask[]
+      }
+    }
   }
-
 
   useEffect(() => {
 
-    if (Object.keys(user).length > 0) {
-      getCities().then(data => setTasks(data))
+    if (currentUser) {
+      getTasks().then(data => data ? setTasks(data) : null)
     }
-  }, [user, saveTasks])
+  }, [currentUser])
+
+
+  async function saveTasks(TaskData: ITask) {
+    try {
+      await addDoc(collection(db, "Tasks"), TaskData);
+      getTasks().then(data => data ? setTasks(data) : null)
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
+
+
+  const updateTasks = async (id: number, upTask: ITask) => {
+    tasks.filter((task: ITask) => {
+      if (task.id === id) {
+        task.title = upTask.title;
+        task.description = upTask.description;
+        setTasks([...tasks]);
+      }
+    });
+  };
+
+  const teste = () => {
+    updateDoc(doc(db, "Tasks", "zi9u9voO6wIBfCphOQki"),{
+      description: "macacomacacomacaco"
+    })
+    }
+
+    useEffect(() => {
+      teste()
+    }, [])
+    
+
+
+  // * //////////////////////////////////////////////////////////////////////////////////////////////////    
 
 
   const getDoneTasks = (): ITask[] => {
@@ -84,16 +129,6 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     localStorage.setItem("tasks", JSON.stringify(deletedTask));
   };
 
-  const updateTasks = (id: number, upTask: ITask) => {
-    tasks.filter((task: ITask) => {
-      if (task.id === id) {
-        task.title = upTask.title;
-        task.description = upTask.description;
-        setTasks([...tasks]);
-      }
-    });
-  };
-
   const defineCurrentTasks = (
     taskStatus: "AllTasks" | "doneTasks" | "pendingTasks" | "ImportantTasks"
   ) => {
@@ -115,6 +150,7 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     <TasksContext.Provider
       value={{
         currentTasks,
+        saveTasks,
         getDoneTasks,
         getPendingTasks,
         getImportantTasks,

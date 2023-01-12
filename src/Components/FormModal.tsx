@@ -13,13 +13,12 @@ import {
   Flex,
   Button,
   Select,
-  useRadioGroup,
   forwardRef,
 } from "@chakra-ui/react";
 import { AuthContextType, ITask, TaskContextType } from "../types/Task";
 import CardColorInput from "./ColorInput";
 import { AuthContext } from "../Contexts/Auth/AuthContext";
-import useTasks from "../Hooks/useTask";
+import { TasksContext } from "../Contexts/TaskContext";
 
 
 type Props = {
@@ -29,15 +28,15 @@ type Props = {
 
 const FormModal = ({ open, close }: Props) => {
 
-  const {user} = useContext(AuthContext) as AuthContextType
+  const {currentUser} = useContext(AuthContext) as AuthContextType
+
+  const {saveTasks} = useContext(TasksContext) as TaskContextType
 
 
   const [taskTitle, setTaskTitle] = useState<string>("")
   const [taskDescription, setTaskDescription] = useState<string>("")
   const [cardColor, setCardColor] = useState<string>("");
   const [taskType, setTaskType] = useState<string>("Normal");
-
-  const [saveTasks] = useTasks()
 
   const handleForm = (): ITask => {
 
@@ -48,7 +47,7 @@ const FormModal = ({ open, close }: Props) => {
       done: false,
       type: taskType,
       color: cardColor,
-      userId: user.uid ? user.uid : "no user id task"
+      userId: currentUser ? currentUser.uid : "no currentUser id task"
     });
 
     setTaskTitle("")

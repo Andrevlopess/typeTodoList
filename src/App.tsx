@@ -9,6 +9,7 @@ import TasksPage from "./Pages/TasksPage";
 import LoginPage from "./Pages/LoginPage";
 import { AuthProvider } from "./Contexts/Auth/AuthContext";
 import RequireAuth from "./Contexts/Auth/RequireAuth";
+import Home from "./Pages/Home";
 
 export const App = () => (
 
@@ -17,7 +18,8 @@ export const App = () => (
       <AuthProvider>
         <TasksProvider>
           <Routes>
-            <Route path='/' element={<RequireAuth><TasksPage/></RequireAuth>} />
+            <Route path='/' element={<Home/>}/>
+            <Route path='/privatePage' element={<RequireAuth><TasksPage/></RequireAuth>} />
           </Routes>
         </TasksProvider>
       </AuthProvider>

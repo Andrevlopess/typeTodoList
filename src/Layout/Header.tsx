@@ -1,4 +1,4 @@
-import { Avatar, Box, Center, Container, Divider, Flex, Heading, ModalOverlay, Spacer, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Avatar, Box, Button, Center, Container, Divider, Flex, Heading, ModalOverlay, Spacer, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -7,6 +7,8 @@ import {
   faPlus,
   faList12,
   faCircleExclamation,
+  faUserMinus,
+  faUser
 } from '@fortawesome/free-solid-svg-icons'
 import React, { useContext } from 'react'
 
@@ -28,13 +30,24 @@ const Header = (props: Props) => {
     getImportantTasks
   } = useContext(TasksContext) as TaskContextType
 
-  const { user } = useContext(AuthContext) as AuthContextType
+  const { currentUser, cleanUser } = useContext(AuthContext) as AuthContextType
 
   return (
     <Flex w='20vw' minW='250px' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column'>
       <Flex w='100%' p='10px' alignItems='center' >
-        <Avatar name={`${user.displayName}`} src={`${user.photoURL}`} />
-        <Text color='txtColor' mx='10px'>{user.displayName}</Text>
+
+        <Flex w='100%' justifyContent='space-between' alignItems='center' px='10px'>
+
+          <Flex alignItems='center'>
+            <Avatar
+              name={`${currentUser && currentUser.displayName}`}
+              src={`${currentUser && currentUser.photoURL}`} />
+            <Text color='txtColor' mx='10px'>{currentUser && currentUser.displayName}</Text>
+          </Flex>
+
+          <FontAwesomeIcon icon={faUserMinus as IconProp} color='#d1d1d1' onClick={cleanUser}/>
+        </Flex>
+
       </Flex>
       <Divider />
       <VStack my='50px' spacing={6}>

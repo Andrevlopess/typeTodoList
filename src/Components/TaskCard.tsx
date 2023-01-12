@@ -29,7 +29,6 @@ const TaskCard = ({ task }: Props) => {
 
     return (
         <>
-
             <Card bgColor={task.color} borderRadius='15px' _hover={{ transform: 'scale(1.1)' }} transition='250ms'
                 boxShadow={task.done ? '0 0 10px green' : '0 5px 30px black'}
                 filter='auto' brightness={task.done ? '60%' : '100%'}

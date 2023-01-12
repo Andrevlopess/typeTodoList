@@ -12,11 +12,12 @@ export interface ITask {
 
 export type TaskContextType = {
     currentTasks: ITask[];
+    saveTasks: (TaskData: ITask) => Promise<void>;
 
     getDoneTasks(): ITask[];
     getPendingTasks(): ITask[];   
     getImportantTasks(): ITask[];
-    
+
     updateTasks: (id: number, upTask: ITask) => void;
     concludeTasks: (id: number) => void;
     deleteTask: (id: number) => void;
@@ -25,6 +26,7 @@ export type TaskContextType = {
 }
 
 export type AuthContextType = {
-    user: User;
+    currentUser: User | null;
+    cleanUser: () => void
     signInWithGoogle: () => void
 }
