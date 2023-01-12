@@ -24,6 +24,7 @@ type Props = {
 };
 
 const UpdateModal = ({ close, open, task }: Props) => {
+
   const { updateTasks } = useContext(TasksContext) as TaskContextType;
 
   const [upTitle, setUpTitle] = useState<string>(task.title);
@@ -36,7 +37,7 @@ const UpdateModal = ({ close, open, task }: Props) => {
   };
 
   function handleUpdateTask(upTask: ITask) {
-    updateTasks(task.id, upTask);
+    updateTasks(upTask.id, upTask);
     close();
   }
 

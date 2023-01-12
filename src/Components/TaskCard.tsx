@@ -34,7 +34,6 @@ const TaskCard = ({ task }: Props) => {
                 filter='auto' brightness={task.done ? '60%' : '100%'}
             >
                 <CardBody>
-
                     <Flex alignItems='flex-start' justifyContent='space-between'>
                         <Text color='txtColor' fontSize='4xl'>{currentTasks.findIndex(tsk => tsk.id === task.id) + 1}</Text>
                         {task.type === "Important" &&

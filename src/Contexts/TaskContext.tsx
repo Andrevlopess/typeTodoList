@@ -18,10 +18,19 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
 
   const [tasks, setTasks] = useState<ITask[]>([])
 
+  async function getSpecificTaskID(id: number) {
+    const TasksCol =
+      query(collection(db, 'Tasks'),
+        where("id", "==", id));
+
+    const tasksSnapshot = await getDocs(TasksCol);
+    const SpecificTask = tasksSnapshot.docs.map(doc => doc.id);
+
+    return SpecificTask
+  }
 
   async function getTasks() {
     if (currentUser) {
-
       const TasksCol =
         query(collection(db, 'Tasks'),
           where("userId", "==", currentUser.uid));
@@ -37,12 +46,7 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     }
   }
 
-  useEffect(() => {
 
-    if (currentUser) {
-      getTasks().then(data => data ? setTasks(data) : null)
-    }
-  }, [currentUser])
 
 
   async function saveTasks(TaskData: ITask) {
@@ -55,27 +59,43 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
   }
 
 
-  const updateTasks = async (id: number, upTask: ITask) => {
-    tasks.filter((task: ITask) => {
-      if (task.id === id) {
-        task.title = upTask.title;
-        task.description = upTask.description;
-        setTasks([...tasks]);
-      }
-    });
-  };
+  // const updateTasks = async (id: number, upTask: ITask) => {
+  //   tasks.filter((task: ITask) => {
+  //     if (task.id === id) {
+  //       task.title = upTask.title;
+  //       task.description = upTask.description;
+  //       setTasks([...tasks]);
+  //     }
+  //   });
+  // };
 
-  const teste = () => {
-    updateDoc(doc(db, "Tasks", "zi9u9voO6wIBfCphOQki"),{
-      description: "macacomacacomacaco"
-    })
+  function refreshTasks() {
+    if (currentUser) {
+      console.log('refreshed');
+      
+      getTasks().then(data => data ? setTasks(data) : null)
     }
+  }
+  
+  
+  const updateTasks = (id: number, upTask: ITask) => {
 
-    useEffect(() => {
-      teste()
-    }, [])
-    
+    getSpecificTaskID(id).then(data =>
+      updateDoc(doc(db, "Tasks", data[0]), {
+        title: upTask.title,
+        description: upTask.description
+      })
+    )
+    refreshTasks()
+  }
 
+
+  useEffect(() => {
+
+    if (currentUser) {
+      getTasks().then(data => data ? setTasks(data) : null)
+    }
+  }, [currentUser])
 
   // * //////////////////////////////////////////////////////////////////////////////////////////////////    
 
