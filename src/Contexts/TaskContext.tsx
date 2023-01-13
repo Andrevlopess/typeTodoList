@@ -1,4 +1,7 @@
 
+import { useFirestoreQuery } from "@react-query-firebase/firestore";
+import { useFirestoreQueryData } from "@react-query-firebase/firestore/dist/firestore/src/useFirestoreQueryData";
+
 import { dblClick } from "@testing-library/user-event/dist/types/setup/directApi";
 import { collection, getDocs, limit, orderBy, query, where, onSnapshot, doc, addDoc, updateDoc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -16,6 +19,7 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
 
 
   const [tasks, setTasks] = useState<ITask[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   async function getSpecificTaskID(id: number) {
     const TasksCol =
@@ -35,19 +39,20 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
         query(TasksCollectionRef,
           where("userId", "==", currentUser.uid),
           orderBy("createdAt")
-          );
+        );
 
       const tasksSnapshot = await getDocs(TasksCol);
       const taskList = tasksSnapshot.docs.map(doc => doc.data());
 
       if (taskList) {
         setTasks(taskList as ITask[])
+        setIsLoading(false)
       } else {
         setTasks([] as ITask[])
       }
     }
   }
-
+  
   async function saveTasks(TaskData: ITask) {
     try {
       await addDoc(collection(db, "Tasks"), TaskData);
@@ -57,17 +62,27 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     }
   }
 
-
-  const updateTasks = (id: number, upTask: ITask) => {
-
+  function updateSnapshot(id: number) {
     getSpecificTaskID(id).then(data =>
-      updateDoc(doc(db, "Tasks", data[0]), {
+      onSnapshot(doc(db, "Tasks", data[0]), (doc) => {
+        getTasks()
+      })
+    )
+
+  }
+
+  function updateTasks(id: number, upTask: ITask) {
+    getSpecificTaskID(id).then(async data =>
+      await updateDoc(doc(db, "Tasks", data[0]), {
         title: upTask.title,
         description: upTask.description
       })
     )
-  }
 
+    updateSnapshot(id)
+
+    // updateSnapshot("gkyQM8vLMYueVYg8aOwa")
+  }
 
   useEffect(() => {
 
@@ -83,6 +98,7 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     <TasksContext.Provider
       value={{
         tasks,
+        isLoading,
         saveTasks,
         updateTasks,
       }}

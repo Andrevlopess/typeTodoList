@@ -13,6 +13,7 @@ export interface ITask {
 
 export type TaskContextType = {
     tasks: ITask[];
+    isLoading: boolean;
     saveTasks: (TaskData: ITask) => Promise<void>;
     updateTasks: (id: number, upTask: ITask) => void;
 }

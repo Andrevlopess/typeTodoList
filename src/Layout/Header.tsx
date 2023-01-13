@@ -24,6 +24,7 @@ const Header = (props: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { currentUser, cleanUser } = useContext(AuthContext) as AuthContextType
+  const {tasks} = useContext(TasksContext) as TaskContextType
 
   return (
     <Flex w='20vw' minW='250px' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column'>
@@ -53,7 +54,7 @@ const Header = (props: Props) => {
             <Text fontWeight='bold' color='txtColor' ml='10px'>All tasks</Text>
           </Flex>
 
-          <Text color='grey'>{`(99)`}</Text>
+          <Text color='grey'>{`(${tasks.length})`}</Text>
         </Flex>
         <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'
           justifyContent='space-between'
@@ -103,13 +104,13 @@ const Header = (props: Props) => {
       </VStack>
       <Divider />
       <Flex flexDirection='column' justifyContent='center' w='100%' mb='30px' px='10px'>
-        {/* {!!getAllTasks().length &&
-          getAllTasks().map((task) => {
+        {!!tasks.length &&
+          tasks.map((task) => {
             return (
               <Box key={task.id}>
                 <Flex p='10px' alignItems='baseline'  >
 
-                  <Text color='txtColor' fontSize='2xl'>{getAllTasks().findIndex(tsk => tsk.id === task.id) + 1}</Text>
+                  <Text color='txtColor' fontSize='2xl'>{tasks.findIndex(tsk => tsk.id === task.id) + 1}</Text>
                   <Text color='txtColor' px='10px' w='90%'>{task.title}</Text>
                   {task.type === "Important" &&
                     <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -122,7 +123,7 @@ const Header = (props: Props) => {
             )
           })
 
-        } */}
+        }
       </Flex>
 
       <FormModal open={isOpen} close={onClose} />

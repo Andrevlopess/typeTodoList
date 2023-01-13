@@ -10,9 +10,10 @@ import {
     PopoverCloseButton,
     PopoverAnchor,
     Heading,
+    Spinner,
 } from '@chakra-ui/react'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import {faTrash} from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext } from 'react'
 import TaskCard from '../Components/TaskCard'
@@ -23,19 +24,18 @@ type Props = {}
 
 const Main = (props: Props) => {
 
-    const { tasks } = useContext(TasksContext) as TaskContextType
+    const { tasks, isLoading } = useContext(TasksContext) as TaskContextType
 
     return (
         <Container maxW='none' w='100%' bgColor='layoutBg' m='20px' borderRadius='20px'>
             <Flex w='100%' justifyContent='space-between' my='20px' alignItems='center' p='10px'>
 
                 <Heading fontWeight='bold' color='txtColor' size='3xl'>My tasks</Heading>
-
                 {!!tasks.length &&
                     <Popover placement='bottom-start'>
                         <PopoverTrigger>
                             <Button bgColor='compBg' color='txtColor' _hover={{ color: 'compBg', bgColor: 'txtColor' }}>
-                            <FontAwesomeIcon icon={faTrash as IconProp}/>
+                                <FontAwesomeIcon icon={faTrash as IconProp} />
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent bgColor='compBg' color='txtColor' border='none'>
@@ -45,10 +45,10 @@ const Main = (props: Props) => {
                             <PopoverBody>
                                 <Button bgColor='txtColor' color='compBg' w='100%'
                                     _hover={{ color: 'txtColor', bgColor: 'compBg' }}
-                                   //</PopoverBody> onClick={clearTasks} 
-                                   >
-                                        <FontAwesomeIcon icon={faTrash as IconProp}/>
-                                    </Button>
+                                //</PopoverBody> onClick={clearTasks} 
+                                >
+                                    <FontAwesomeIcon icon={faTrash as IconProp} />
+                                </Button>
                             </PopoverBody>
                         </PopoverContent>
                     </Popover>
@@ -56,12 +56,13 @@ const Main = (props: Props) => {
 
 
             </Flex>
-            {!tasks.length &&
-                <Center mt='200px' >
-                    <Heading color='txtColor'>You have no tasks for today</Heading>
-                </Center>
-            }
+
             <SimpleGrid minChildWidth='200px' spacing={8} p='30px'>
+                {isLoading &&
+                    <Center w='100%' h='100%'>
+                        <Spinner size='xl' color='white' />
+                    </Center>
+                }
 
                 {tasks &&
                     tasks.map((task: ITask) => {
