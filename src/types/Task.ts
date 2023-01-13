@@ -8,21 +8,13 @@ export interface ITask {
     type: string;
     color: string;
     userId: string;
+    createdAt: string;
 }
 
 export type TaskContextType = {
-    currentTasks: ITask[];
+    tasks: ITask[];
     saveTasks: (TaskData: ITask) => Promise<void>;
-
-    getDoneTasks(): ITask[];
-    getPendingTasks(): ITask[];   
-    getImportantTasks(): ITask[];
-
     updateTasks: (id: number, upTask: ITask) => void;
-    concludeTasks: (id: number) => void;
-    deleteTask: (id: number) => void;
-    defineCurrentTasks: (taskStatus: "AllTasks" | "doneTasks" | "pendingTasks" | "ImportantTasks") => void;
-    clearTasks: () => void;
 }
 
 export type AuthContextType = {

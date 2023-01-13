@@ -23,13 +23,6 @@ const Header = (props: Props) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const {
-    defineCurrentTasks,
-    getDoneTasks,
-    getPendingTasks,
-    getImportantTasks
-  } = useContext(TasksContext) as TaskContextType
-
   const { currentUser, cleanUser } = useContext(AuthContext) as AuthContextType
 
   return (
@@ -53,7 +46,7 @@ const Header = (props: Props) => {
       <VStack my='50px' spacing={6}>
         <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
 
-          onClick={() => { defineCurrentTasks('AllTasks') }}
+         // onClick={() => { defineCurrentTasks('AllTasks') }}
         >
           <Flex alignItems='center'>
             <FontAwesomeIcon icon={faList as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -64,7 +57,7 @@ const Header = (props: Props) => {
         </Flex>
         <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px'
           justifyContent='space-between'
-          onClick={() => { defineCurrentTasks('doneTasks') }}
+          //onClick={() => { defineCurrentTasks('doneTasks') }}
         >
           <Flex alignItems='center'>
             <FontAwesomeIcon icon={faListCheck as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -72,11 +65,11 @@ const Header = (props: Props) => {
           </Flex>
 
 
-          <Text color='grey'>{`(${getDoneTasks().length})`}</Text>
+          <Text color='grey'>{`(99)`}</Text>
 
         </Flex>
         <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
-          onClick={() => { defineCurrentTasks('pendingTasks') }}
+         // onClick={() => { defineCurrentTasks('pendingTasks') }}
         >
           <Flex alignItems='center'>
             <FontAwesomeIcon icon={faList12 as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -84,11 +77,11 @@ const Header = (props: Props) => {
           </Flex>
 
 
-          <Text color='grey'>{`(${getPendingTasks().length})`}</Text>
+          <Text color='grey'>{`(99)`}</Text>
         </Flex>
 
         <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
-          onClick={() => { defineCurrentTasks('ImportantTasks') }}
+         // onClick={() => { defineCurrentTasks('ImportantTasks') }}
         >
           <Flex alignItems='center'>
             <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -96,13 +89,14 @@ const Header = (props: Props) => {
           </Flex>
 
 
-          <Text color='grey'>{`(${getImportantTasks().length})`}</Text>
+          <Text color='grey'>{`(99)`}</Text>
         </Flex>
         <Divider />
         <Text fontWeight='bold' color='txtColor' ml='10px'>Create a new Task for Today</Text>
 
         <Center w='90%' h='100px' bgColor='txtColor' px='20px' py='10px' borderRadius='10px'
-          onClick={() => onOpen()}>
+          onClick={() => onOpen()}
+         >
 
           <FontAwesomeIcon icon={faPlus as IconProp} color='#292929' fontSize='20px' />
         </Center>

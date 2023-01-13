@@ -21,12 +21,6 @@ const QueryHeader = (props: Props) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const {
-        defineCurrentTasks,
-    } = useContext(TasksContext) as TaskContextType
-
-
-
     return (
         <Flex w='100%' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column' alignItems='center'
      p='10px' >
@@ -38,7 +32,7 @@ const QueryHeader = (props: Props) => {
                 <SimpleGrid columns={2} spacing={4}>
 
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
-                        onClick={() => { defineCurrentTasks('AllTasks') }}
+                      //  onClick={() => { defineCurrentTasks('AllTasks') }}
                     >
                         <Flex alignItems='center'>
                             <FontAwesomeIcon icon={faList as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -46,7 +40,7 @@ const QueryHeader = (props: Props) => {
                         </Flex>
                     </Flex>
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
-                        onClick={() => { defineCurrentTasks('doneTasks') }}
+                      //  onClick={() => { defineCurrentTasks('doneTasks') }}
                     >
                         <Flex alignItems='center'>
                             <FontAwesomeIcon icon={faListCheck as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -54,7 +48,7 @@ const QueryHeader = (props: Props) => {
                         </Flex>
                     </Flex>
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
-                        onClick={() => { defineCurrentTasks('pendingTasks') }}
+                      //  onClick={() => { defineCurrentTasks('pendingTasks') }}
                     >
                         <Flex alignItems='center'>
                             <FontAwesomeIcon icon={faList12 as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -62,7 +56,7 @@ const QueryHeader = (props: Props) => {
                         </Flex>
                     </Flex>
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
-                        onClick={() => { defineCurrentTasks('ImportantTasks') }}
+                     //   onClick={() => { defineCurrentTasks('ImportantTasks') }}
                     >
                         <Flex alignItems='center'>
                             <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='20px' />

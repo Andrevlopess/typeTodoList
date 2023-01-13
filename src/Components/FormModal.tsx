@@ -38,6 +38,7 @@ const FormModal = ({ open, close }: Props) => {
   const [cardColor, setCardColor] = useState<string>("");
   const [taskType, setTaskType] = useState<string>("Normal");
 
+
   const handleForm = (): ITask => {
 
     const taskData: ITask = ({
@@ -47,7 +48,8 @@ const FormModal = ({ open, close }: Props) => {
       done: false,
       type: taskType,
       color: cardColor,
-      userId: currentUser ? currentUser.uid : "no currentUser id task"
+      userId: currentUser ? currentUser.uid : "no currentUser id task",
+      createdAt: new Date().toISOString()
     });
 
     setTaskTitle("")

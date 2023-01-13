@@ -17,15 +17,15 @@ type Props = {
 }
 const TaskCard = ({ task }: Props) => {
 
-    const { concludeTasks, deleteTask, currentTasks } = useContext(TasksContext) as TaskContextType
+    const { tasks } = useContext(TasksContext) as TaskContextType
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    function handleConcludeTask(id: number) {
-        concludeTasks(id)
-    }
-    function handleDeleteTask(id: number) {
-        deleteTask(id)
-    }
+    // function handleConcludeTask(id: number) {
+    //     concludeTasks(id)
+    // }
+    // function handleDeleteTask(id: number) {
+    //     deleteTask(id)
+    // }
 
     return (
         <>
@@ -35,7 +35,7 @@ const TaskCard = ({ task }: Props) => {
             >
                 <CardBody>
                     <Flex alignItems='flex-start' justifyContent='space-between'>
-                        <Text color='txtColor' fontSize='4xl'>{currentTasks.findIndex(tsk => tsk.id === task.id) + 1}</Text>
+                        <Text color='txtColor' fontSize='4xl'>{tasks.findIndex(tsk => tsk.id === task.id) + 1}</Text>
                         {task.type === "Important" &&
 
                             <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='25px' />
@@ -53,7 +53,7 @@ const TaskCard = ({ task }: Props) => {
                     <Flex w='100%'>
                         {!task.done &&
                             <Center bgColor='compBg' p='10px' borderRadius='5px'
-                                onClick={() => handleConcludeTask(task.id)}
+                               // onClick={() => handleConcludeTask(task.id)}
                             >
                                 <FontAwesomeIcon icon={faCheck as IconProp} color='#5F8D4E' />
                             </Center>
@@ -70,7 +70,7 @@ const TaskCard = ({ task }: Props) => {
 
 
                         <Center bgColor='compBg' p='10px' borderRadius='5px'
-                            onClick={() => handleDeleteTask(task.id)}
+                           // onClick={() => handleDeleteTask(task.id)}
                         >
                             <FontAwesomeIcon icon={faTrash as IconProp} color='#B73E3E'
                             />

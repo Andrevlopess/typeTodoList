@@ -14,7 +14,6 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
 
   const { currentUser } = useContext(AuthContext) as AuthContextType
 
-  // * //////////////////////////////////////////////////////////////////////////////////////////////////  
 
   const [tasks, setTasks] = useState<ITask[]>([])
 
@@ -29,55 +28,36 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     return SpecificTask
   }
 
+
   async function getTasks() {
     if (currentUser) {
       const TasksCol =
-        query(collection(db, 'Tasks'),
-          where("userId", "==", currentUser.uid));
+        query(TasksCollectionRef,
+          where("userId", "==", currentUser.uid),
+          orderBy("createdAt")
+          );
 
       const tasksSnapshot = await getDocs(TasksCol);
       const taskList = tasksSnapshot.docs.map(doc => doc.data());
 
       if (taskList) {
-        return taskList as ITask[];
+        setTasks(taskList as ITask[])
       } else {
-        return [] as ITask[]
+        setTasks([] as ITask[])
       }
     }
   }
 
-
-
-
   async function saveTasks(TaskData: ITask) {
     try {
       await addDoc(collection(db, "Tasks"), TaskData);
-      getTasks().then(data => data ? setTasks(data) : null)
+      getTasks()
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   }
 
 
-  // const updateTasks = async (id: number, upTask: ITask) => {
-  //   tasks.filter((task: ITask) => {
-  //     if (task.id === id) {
-  //       task.title = upTask.title;
-  //       task.description = upTask.description;
-  //       setTasks([...tasks]);
-  //     }
-  //   });
-  // };
-
-  function refreshTasks() {
-    if (currentUser) {
-      console.log('refreshed');
-      
-      getTasks().then(data => data ? setTasks(data) : null)
-    }
-  }
-  
-  
   const updateTasks = (id: number, upTask: ITask) => {
 
     getSpecificTaskID(id).then(data =>
@@ -86,99 +66,25 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
         description: upTask.description
       })
     )
-    refreshTasks()
   }
 
 
   useEffect(() => {
 
     if (currentUser) {
-      getTasks().then(data => data ? setTasks(data) : null)
+      getTasks()
     }
   }, [currentUser])
 
   // * //////////////////////////////////////////////////////////////////////////////////////////////////    
 
 
-  const getDoneTasks = (): ITask[] => {
-    const savedTasks: ITask[] = JSON.parse(
-      localStorage.getItem("tasks") || "[]"
-    );
-    const doneTasks = savedTasks.filter((tasks) => tasks.done === true);
-    return doneTasks;
-  };
-
-  const getPendingTasks = (): ITask[] => {
-    const savedTasks: ITask[] = JSON.parse(
-      localStorage.getItem("tasks") || "[]"
-    );
-    const pendingTasks = savedTasks.filter((tasks) => tasks.done === false);
-    return pendingTasks;
-  };
-
-  const getImportantTasks = () => {
-    const savedTasks: ITask[] = JSON.parse(
-      localStorage.getItem("tasks") || "[]"
-    );
-    const pendingTasks = savedTasks.filter((tasks) => tasks.type === 'Important');
-    return pendingTasks;
-  }
-
-
-  const [currentTasks, setCurrentTasks] = useState<ITask[]>(tasks);
-
-  useEffect(() => {
-    setCurrentTasks(tasks);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-
-  const concludeTasks = (id: number) => {
-    tasks.filter((task: ITask) => {
-      if (task.id === id) {
-        task.done = true;
-        setTasks([...tasks]);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-      }
-    });
-  };
-
-  const deleteTask = (id: number) => {
-    const deletedTask = tasks.filter((tasks: ITask) => tasks.id !== id);
-    setTasks(deletedTask);
-    localStorage.setItem("tasks", JSON.stringify(deletedTask));
-  };
-
-  const defineCurrentTasks = (
-    taskStatus: "AllTasks" | "doneTasks" | "pendingTasks" | "ImportantTasks"
-  ) => {
-    if (taskStatus === "doneTasks") {
-      setCurrentTasks(getDoneTasks());
-    } else if (taskStatus === "pendingTasks") {
-      setCurrentTasks(getPendingTasks());
-    } else if (taskStatus === "AllTasks") {
-      setCurrentTasks(tasks);
-    } else if (taskStatus === "ImportantTasks") {
-      setCurrentTasks(getImportantTasks());
-    }
-  };
-  const clearTasks = () => {
-    setTasks([]);
-  };
-
   return (
     <TasksContext.Provider
       value={{
-        currentTasks,
+        tasks,
         saveTasks,
-        getDoneTasks,
-        getPendingTasks,
-        getImportantTasks,
         updateTasks,
-        concludeTasks,
-        deleteTask,
-        defineCurrentTasks,
-        clearTasks,
       }}
     >
       {children}
