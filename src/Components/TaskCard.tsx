@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Card, CardHeader, CardBody, CardFooter, Text, Flex, Button, VStack, HStack, useDisclosure, IconProps, Center, Spacer, Divider, Fade, Badge } from '@chakra-ui/react'
+import React, { useContext, useState } from 'react'
+import { Card, CardHeader, CardBody, CardFooter, Text, Flex, Button, VStack, HStack, useDisclosure, IconProps, Center, Spacer, Divider, Fade, Badge, Spinner } from '@chakra-ui/react'
 import { ITask, TaskContextType } from '../types/Task'
 import { TasksContext } from '../Contexts/TaskContext'
 import UpdateModal from './UpdateModal'
@@ -11,21 +11,32 @@ import {
     faPenToSquare,
     faTrash
 } from '@fortawesome/free-solid-svg-icons'
+import { isDeleteExpression } from 'typescript'
 
 type Props = {
     task: ITask
 }
 const TaskCard = ({ task }: Props) => {
 
-    const { tasks, deleteTask } = useContext(TasksContext) as TaskContextType
+    const { tasks,
+        deleteTask,
+        concludeTask,
+        isDeleteTaskLoading,
+        isConcludeTaskLoading,
+    } = useContext(TasksContext) as TaskContextType
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    // function handleConcludeTask(id: number) {
-    //     concludeTasks(id)
-    // }
-    // function handleDeleteTask(id: number) {
-    //     deleteTask(id)
-    // }
+    const [deletingCard, setDeletingCard] = useState<number>()
+    const [concludingCard, setConcludingCard] = useState<number>()
+
+    function handleConcludeTask(id: number) {
+        setConcludingCard(id)
+        concludeTask(id)
+    }
+    function handleDeleteTask(id: number) {
+        setDeletingCard(id)
+        deleteTask(id)
+    }
 
     return (
         <>
@@ -53,9 +64,15 @@ const TaskCard = ({ task }: Props) => {
                     <Flex w='100%'>
                         {!task.done &&
                             <Center bgColor='compBg' p='10px' borderRadius='5px'
-                               // onClick={() => handleConcludeTask(task.id)}
+                                onClick={() => handleConcludeTask(task.id)}
                             >
-                                <FontAwesomeIcon icon={faCheck as IconProp} color='#5F8D4E' />
+                                {isConcludeTaskLoading && concludingCard === task.id ?
+
+                                    <Spinner color='#54B435' thickness='3px' />
+                                    :
+                                    <FontAwesomeIcon icon={faCheck as IconProp} color='#54B435' />
+                                }
+
                             </Center>
                         }
 
@@ -70,10 +87,16 @@ const TaskCard = ({ task }: Props) => {
 
 
                         <Center bgColor='compBg' p='10px' borderRadius='5px'
-                           onClick={() => deleteTask(task.id)}
+                            onClick={() => handleDeleteTask(task.id)}
                         >
-                            <FontAwesomeIcon icon={faTrash as IconProp} color='#B73E3E'
-                            />
+
+                            {isDeleteTaskLoading && deletingCard === task.id ?
+
+                                <Spinner color='#B73E3E' thickness='3px' />
+                                :
+                                <FontAwesomeIcon icon={faTrash as IconProp} color='#B73E3E' />
+                            }
+
                         </Center>
 
                     </Flex>

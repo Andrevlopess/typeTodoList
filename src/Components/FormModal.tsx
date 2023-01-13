@@ -36,7 +36,7 @@ const FormModal = ({ open, close }: Props) => {
 
   const [taskTitle, setTaskTitle] = useState<string>("")
   const [taskDescription, setTaskDescription] = useState<string>("")
-  const [cardColor, setCardColor] = useState<string>("");
+  const [cardColor, setCardColor] = useState<string>("desktopBg");
   const [taskType, setTaskType] = useState<string>("Normal");
 
 
@@ -64,10 +64,8 @@ const FormModal = ({ open, close }: Props) => {
 
   const handleSaveTodo = (e: React.FormEvent) => {
     e.preventDefault();
-    saveTasks(handleForm());
-    if(isModalLoading){
-      close()
-    }
+    saveTasks(handleForm())
+    close()
   };
 
 
@@ -162,13 +160,15 @@ const FormModal = ({ open, close }: Props) => {
             <Button
               w="100%"
               h="60px"
+              mt='15px'
               bgColor={cardColor}
               color="txtColor"
               borderRadius="10px"
               type="submit"
+              _hover={{border: "1px"}}
 
             >
-             {!isModalLoading ? "Create" : <Spinner color="txtColor" size='xl'/>}
+             {!isModalLoading ? "Create" : <Spinner color="txtColor" boxSize='50px' thickness="4px" />}
             </Button>
           </form>
         </ModalBody>

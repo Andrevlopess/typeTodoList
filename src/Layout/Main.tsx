@@ -62,11 +62,9 @@ const Main = (props: Props) => {
                     <Center h='400px'>
                         <Spinner color='txtColor' boxSize='100px' thickness='5px' speed='.6s' />
                     </Center>
-
-
                 }
 
-                {tasks &&
+                {tasks && !isLoading &&
                     tasks.map((task: ITask) => {
                         return (
                             <TaskCard task={task} key={task.id} />
