@@ -17,7 +17,7 @@ type Props = {
 }
 const TaskCard = ({ task }: Props) => {
 
-    const { tasks } = useContext(TasksContext) as TaskContextType
+    const { tasks, deleteTask } = useContext(TasksContext) as TaskContextType
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     // function handleConcludeTask(id: number) {
@@ -70,7 +70,7 @@ const TaskCard = ({ task }: Props) => {
 
 
                         <Center bgColor='compBg' p='10px' borderRadius='5px'
-                           // onClick={() => handleDeleteTask(task.id)}
+                           onClick={() => deleteTask(task.id)}
                         >
                             <FontAwesomeIcon icon={faTrash as IconProp} color='#B73E3E'
                             />

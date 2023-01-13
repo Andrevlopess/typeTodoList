@@ -59,9 +59,11 @@ const Main = (props: Props) => {
 
             <SimpleGrid minChildWidth='200px' spacing={8} p='30px'>
                 {isLoading &&
-                    <Center w='100%' h='100%'>
-                        <Spinner size='xl' color='white' />
+                    <Center h='400px'>
+                        <Spinner color='txtColor' boxSize='100px' thickness='5px' speed='.6s' />
                     </Center>
+
+
                 }
 
                 {tasks &&

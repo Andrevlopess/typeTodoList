@@ -14,6 +14,7 @@ import {
   Button,
   Select,
   forwardRef,
+  Spinner,
 } from "@chakra-ui/react";
 import { AuthContextType, ITask, TaskContextType } from "../types/Task";
 import CardColorInput from "./ColorInput";
@@ -30,7 +31,7 @@ const FormModal = ({ open, close }: Props) => {
 
   const {currentUser} = useContext(AuthContext) as AuthContextType
 
-  const {saveTasks} = useContext(TasksContext) as TaskContextType
+  const {saveTasks, isModalLoading} = useContext(TasksContext) as TaskContextType
 
 
   const [taskTitle, setTaskTitle] = useState<string>("")
@@ -59,12 +60,14 @@ const FormModal = ({ open, close }: Props) => {
     return taskData
   };
 
-
+ 
 
   const handleSaveTodo = (e: React.FormEvent) => {
     e.preventDefault();
     saveTasks(handleForm());
-    close();
+    if(isModalLoading){
+      close()
+    }
   };
 
 
@@ -165,7 +168,7 @@ const FormModal = ({ open, close }: Props) => {
               type="submit"
 
             >
-              Create
+             {!isModalLoading ? "Create" : <Spinner color="txtColor" size='xl'/>}
             </Button>
           </form>
         </ModalBody>

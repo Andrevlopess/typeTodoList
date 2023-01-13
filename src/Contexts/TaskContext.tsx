@@ -1,9 +1,5 @@
 
-import { useFirestoreQuery } from "@react-query-firebase/firestore";
-import { useFirestoreQueryData } from "@react-query-firebase/firestore/dist/firestore/src/useFirestoreQueryData";
-
-import { dblClick } from "@testing-library/user-event/dist/types/setup/directApi";
-import { collection, getDocs, limit, orderBy, query, where, onSnapshot, doc, addDoc, updateDoc } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, where, onSnapshot, doc, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth, db, TasksCollectionRef } from "../Services/Firebase";
 import { AuthContextType, ITask, TaskContextType } from "../types/Task";
@@ -20,6 +16,7 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
 
   const [tasks, setTasks] = useState<ITask[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isModalLoading, setIsModalLoading] = useState(false)
 
   async function getSpecificTaskID(id: number) {
     const TasksCol =
@@ -52,11 +49,13 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
       }
     }
   }
-  
+
   async function saveTasks(TaskData: ITask) {
     try {
+      setIsModalLoading(true)
       await addDoc(collection(db, "Tasks"), TaskData);
       getTasks()
+      setIsModalLoading(false)
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -84,7 +83,20 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     // updateSnapshot("gkyQM8vLMYueVYg8aOwa")
   }
 
+  function deleteTask(id: number) {
+    try {
+      getSpecificTaskID(id).then(data => {
+        deleteDoc(doc(db, "Tasks", data[0]));
+      })
+
+      getTasks()
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
+
   useEffect(() => {
+
 
     if (currentUser) {
       getTasks()
@@ -99,6 +111,8 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
       value={{
         tasks,
         isLoading,
+        isModalLoading,
+        deleteTask,
         saveTasks,
         updateTasks,
       }}
