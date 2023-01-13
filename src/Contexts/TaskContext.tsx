@@ -123,27 +123,42 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
       const TasksCol =
         query(TasksCollectionRef,
           where("userId", "==", currentUser.uid),
-          type == "Done" ? where("done", "==", true) : where("done", "==", false),
-          type == "Important" ? where("type", "==", "Impotant") : where("type", "==", "normal"),
           orderBy("createdAt")
         );
 
       setIsLoading(true)
       const tasksSnapshot = await getDocs(TasksCol);
-      const taskList = tasksSnapshot.docs.map(doc => doc.data());
+      const taskListAll = tasksSnapshot.docs.map(doc => doc.data());
+      switch (type) {
+        case "Done":
+          const Donelist = taskListAll.filter(tasks => tasks.done === true)
+          setTasks(Donelist as ITask[])
+          setIsLoading(false)
+          break;
+        case "Pending":
+          const PendingList = taskListAll.filter(tasks => tasks.done === false)
+          setTasks(PendingList as ITask[])
+          setIsLoading(false)
+          break;
 
-      console.log("atualizado");
+        case "Important":
+          const ImportantList = taskListAll.filter(tasks => tasks.type === "Important")
+          setTasks(ImportantList as ITask[])
+          setIsLoading(false)
+          break;
 
-      if (taskList) {
-        setTasks(taskList as ITask[])
-        setIsLoading(false)
-      } else {
-        setTasks([] as ITask[])
+        default:
+          setTasks([] as ITask[])
+          break;
       }
     }
   }
 
-
+ function clearTasks(){
+  tasks.forEach(task => {
+    deleteTask(task.id)
+  })
+ }
 
   useEffect(() => {
 
@@ -167,7 +182,9 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
         concludeTask,
         saveTasks,
         updateTasks,
+        clearTasks,
 
+        getTasks,
         getFilterTasks,
       }}
     >

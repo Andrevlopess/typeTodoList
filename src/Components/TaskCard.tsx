@@ -24,6 +24,7 @@ const TaskCard = ({ task }: Props) => {
         isDeleteTaskLoading,
         isConcludeTaskLoading,
     } = useContext(TasksContext) as TaskContextType
+    
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [deletingCard, setDeletingCard] = useState<number>()
@@ -41,7 +42,7 @@ const TaskCard = ({ task }: Props) => {
     return (
         <>
             <Card bgColor={task.color} borderRadius='15px' _hover={{ transform: 'scale(1.1)' }} transition='250ms'
-                boxShadow={task.done ? '0 0 10px green' : '0 5px 30px black'}
+                border={task.done ? "1px" : 'none'} borderColor='green' borderWidth='4px'
                 filter='auto' brightness={task.done ? '60%' : '100%'}
             >
                 <CardBody>

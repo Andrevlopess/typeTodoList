@@ -7,13 +7,15 @@ import {
     faPlus,
     faList12,
     faCircleExclamation,
-    faC
+    faC,
+    faUserMinus
 } from '@fortawesome/free-solid-svg-icons'
 import React, { useContext } from 'react'
 
 import FormModal from '../Components/FormModal'
-import { TaskContextType } from '../types/Task'
+import { AuthContextType, TaskContextType } from '../types/Task'
 import { TasksContext } from '../Contexts/TaskContext'
+import { AuthContext } from '../Contexts/Auth/AuthContext'
 
 type Props = {}
 
@@ -21,18 +23,32 @@ const QueryHeader = (props: Props) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
+    const { currentUser, cleanUser } = useContext(AuthContext) as AuthContextType
+
+    const {
+        tasks,
+        getTasks,
+        getFilterTasks } = useContext(TasksContext) as TaskContextType
+
     return (
         <Flex w='100%' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column' alignItems='center'
-     p='10px' >
-            <Flex alignItems='center' py='40px' justifyContent='space-between'>
-                <Avatar name='Andre v Lopes' size='lg' />
-                <Text color='txtColor' fontWeight='bold' ml='10px' fontSize='2xl'>Andre V Lopes</Text>
+            p='10px' >
+            <Flex alignItems='center' p='20px' justifyContent='space-between' w='100%'>
+                <Center>
+                    <Avatar
+                        name={`${currentUser && currentUser.displayName}`}
+                        src={`${currentUser && currentUser.photoURL}`} />
+                    <Text color='txtColor' mx='10px'>{currentUser && currentUser.displayName}</Text>
+                </Center>
+
+                <FontAwesomeIcon icon={faUserMinus as IconProp} color='#d1d1d1' onClick={cleanUser} />
+
             </Flex>
             <Flex w='100%' alignItems='center' justifyContent='center'>
                 <SimpleGrid columns={2} spacing={4}>
 
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
-                      //  onClick={() => { defineCurrentTasks('AllTasks') }}
+                        onClick={getTasks}
                     >
                         <Flex alignItems='center'>
                             <FontAwesomeIcon icon={faList as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -40,7 +56,7 @@ const QueryHeader = (props: Props) => {
                         </Flex>
                     </Flex>
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
-                      //  onClick={() => { defineCurrentTasks('doneTasks') }}
+                        onClick={() => { getFilterTasks("Done") }}
                     >
                         <Flex alignItems='center'>
                             <FontAwesomeIcon icon={faListCheck as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -48,7 +64,7 @@ const QueryHeader = (props: Props) => {
                         </Flex>
                     </Flex>
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
-                      //  onClick={() => { defineCurrentTasks('pendingTasks') }}
+                        onClick={() => { getFilterTasks("Pending") }}
                     >
                         <Flex alignItems='center'>
                             <FontAwesomeIcon icon={faList12 as IconProp} color='#d1d1d1' fontSize='20px' />
@@ -56,7 +72,7 @@ const QueryHeader = (props: Props) => {
                         </Flex>
                     </Flex>
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
-                     //   onClick={() => { defineCurrentTasks('ImportantTasks') }}
+                        onClick={() => { getFilterTasks("Important") }}
                     >
                         <Flex alignItems='center'>
                             <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='20px' />

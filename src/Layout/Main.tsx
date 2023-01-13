@@ -24,7 +24,7 @@ type Props = {}
 
 const Main = (props: Props) => {
 
-    const { tasks, isLoading } = useContext(TasksContext) as TaskContextType
+    const { tasks, isLoading, clearTasks } = useContext(TasksContext) as TaskContextType
 
     return (
         <Container maxW='none' w='100%' bgColor='layoutBg' m='20px' borderRadius='20px'>
@@ -45,7 +45,7 @@ const Main = (props: Props) => {
                             <PopoverBody>
                                 <Button bgColor='txtColor' color='compBg' w='100%'
                                     _hover={{ color: 'txtColor', bgColor: 'compBg' }}
-                                //</PopoverBody> onClick={clearTasks} 
+                                    onClick={clearTasks}
                                 >
                                     <FontAwesomeIcon icon={faTrash as IconProp} />
                                 </Button>
@@ -56,6 +56,11 @@ const Main = (props: Props) => {
 
 
             </Flex>
+            {!tasks.length && !isLoading &&
+                <Center h='400px'>
+                    <Heading color='txtColor'>You don't have tasks!</Heading>
+                </Center>
+            }
 
             <SimpleGrid minChildWidth='200px' spacing={8} p='30px'>
                 {isLoading &&

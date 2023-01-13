@@ -19,11 +19,14 @@ export type TaskContextType = {
     isConcludeTaskLoading: boolean;
 
     deleteTask: (id: number) => void
-    concludeTask: (id: number)=> void
+    concludeTask: (id: number) => void
     saveTasks: (TaskData: ITask) => Promise<void>;
     updateTasks: (id: number, upTask: ITask) => void;
+    clearTasks: () => void;
 
-   getFilterTasks: (type: "Done"| "Pending"| "Important") => void
+
+    getTasks: () => void
+    getFilterTasks: (type: "Done" | "Pending" | "Important") => void
 }
 
 export type AuthContextType = {
