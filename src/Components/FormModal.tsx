@@ -53,8 +53,7 @@ const FormModal = ({ open, close }: Props) => {
       createdAt: new Date().toISOString()
     });
 
-    setTaskTitle("")
-    setTaskDescription("")
+ 
     setTaskType("Normal")
 
     return taskData
@@ -65,7 +64,7 @@ const FormModal = ({ open, close }: Props) => {
   const handleSaveTodo = (e: React.FormEvent) => {
     e.preventDefault();
     saveTasks(handleForm())
-    close()
+    
   };
 
 
@@ -160,7 +159,7 @@ const FormModal = ({ open, close }: Props) => {
             <Button
               w="100%"
               h="60px"
-              mt='15px'
+              mt='10px'
               bgColor={cardColor}
               color="txtColor"
               borderRadius="10px"

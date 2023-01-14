@@ -1,14 +1,18 @@
 
+import { toast } from 'react-hot-toast'
 import { collection, getDocs, limit, orderBy, query, where, onSnapshot, doc, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { auth, db, TasksCollectionRef } from "../Services/Firebase";
 import { AuthContextType, ITask, TaskContextType } from "../types/Task";
 import { AuthContext } from "./Auth/AuthContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Center, Flex, Text } from '@chakra-ui/react';
 
 export const TasksContext = createContext<TaskContextType | null>(null);
 
-export const TasksProvider = ({ children }: { children: JSX.Element }) => {
+export const TasksProvider = ({ children }: { children: JSX.Element[] }) => {
 
 
 
@@ -67,13 +71,19 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
   }
 
   function deleteTask(id: number) {
+    setIsDeleteTaskLoading(true)
 
     try {
       getSpecificTaskID(id).then(async id => {
-        setIsDeleteTaskLoading(true)
         await deleteDoc(doc(db, "Tasks", id[0]));
         getTasks()
         setIsDeleteTaskLoading(false)
+        toast((t) => (
+          <Flex alignItems='center'>
+            <FontAwesomeIcon icon={faTrash} color='#DC0000' />
+            <Text mx='10px' color='desktopBg'>Task deleted</Text>
+          </Flex>
+        ))
       })
 
     } catch (e) {
@@ -85,6 +95,12 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     getSpecificTaskID(id).then(data =>
       onSnapshot(doc(db, "Tasks", data[0]), (doc) => {
         getTasks()
+        toast((t) => (
+          <Flex alignItems='center'>
+            <FontAwesomeIcon icon={faEdit} color='#111' fontSize='15px'/>
+            <Text mx='10px' color='desktopBg'>Task Updated</Text>
+          </Flex>
+        ), {duration: 10000})
       })
     )
 
@@ -104,9 +120,9 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
   }
 
   function concludeTask(id: number) {
+    setIsConcludeTaskLoading(true)
     try {
       getSpecificTaskID(id).then(async id => {
-        setIsConcludeTaskLoading(true)
         await updateDoc(doc(db, "Tasks", id[0]), { done: true })
         getTasks()
         setIsConcludeTaskLoading(false)
@@ -154,11 +170,11 @@ export const TasksProvider = ({ children }: { children: JSX.Element }) => {
     }
   }
 
- function clearTasks(){
-  tasks.forEach(task => {
-    deleteTask(task.id)
-  })
- }
+  function clearTasks() {
+    tasks.forEach(task => {
+      deleteTask(task.id)
+    })
+  }
 
   useEffect(() => {
 

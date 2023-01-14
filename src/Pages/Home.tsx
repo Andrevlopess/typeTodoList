@@ -21,13 +21,13 @@ const Home = (props: Props) => {
                 }
 
                 <Button>
-                    <Link to='/privatePage'>
+                    <Link to='/myTasks'>
                         Get Started
                     </Link>
                 </Button>
                 {!currentUser &&
                     <Button>
-                        <Link to='/privatePage'>
+                        <Link to='/myTasks'>
                             Login
                         </Link>
                     </Button>

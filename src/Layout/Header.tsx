@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Center, Container, Divider, Flex, Heading, ModalOverlay, Spacer, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Avatar, Box, Button, Center, Container, Divider, Flex, Heading, ModalOverlay, Spacer, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -8,7 +8,8 @@ import {
   faList12,
   faCircleExclamation,
   faUserMinus,
-  faUser
+  faUser,
+  faChevronDown
 } from '@fortawesome/free-solid-svg-icons'
 import React, { useContext } from 'react'
 
@@ -24,14 +25,14 @@ const Header = (props: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { currentUser, cleanUser } = useContext(AuthContext) as AuthContextType
-  
+
   const {
     tasks,
     getTasks,
     getFilterTasks } = useContext(TasksContext) as TaskContextType
 
   return (
-    <Flex w='20vw' minW='250px' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column'>
+    <Flex w='20vw' minW='250px' bgColor='layoutBg' m='20px' borderRadius='20px' flexDirection='column' >
       <Flex w='100%' p='10px' alignItems='center' >
 
         <Flex w='100%' justifyContent='space-between' alignItems='center' px='10px'>
@@ -68,7 +69,7 @@ const Header = (props: Props) => {
           </Flex>
 
 
-          
+
 
         </Flex>
         <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
@@ -80,7 +81,7 @@ const Header = (props: Props) => {
           </Flex>
 
 
-          
+
         </Flex>
 
         <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
@@ -92,7 +93,7 @@ const Header = (props: Props) => {
           </Flex>
 
 
-          
+
         </Flex>
         <Divider />
         <Text fontWeight='bold' color='txtColor' ml='10px'>Create a new Task for Today</Text>
@@ -105,27 +106,30 @@ const Header = (props: Props) => {
         </Center>
       </VStack>
       <Divider />
-      <Flex flexDirection='column' justifyContent='center' w='100%' mb='30px' px='10px'>
-        {!!tasks.length &&
-          tasks.map((task) => {
-            return (
-              <Box key={task.id}>
-                <Flex p='10px' alignItems='baseline'  >
+      <Flex flexDirection='column' justifyContent='center' w='100%' mb='30px' px='10px' my='20px'>
+        <Accordion allowMultiple>
+          <AccordionItem bgColor='desktopBg' borderRadius='5px' border='none'>
+            <AccordionButton w='100%' display='flex' justifyContent='space-between' >
+              <Text color='txtColor'>My Tasks</Text>
+              <FontAwesomeIcon icon={faChevronDown} color='#d1d1d1'/>
+            </AccordionButton>
+            {!!tasks.length &&
+              tasks.map((task) => {
+                return (
+                  <AccordionPanel display='flex' alignItems='center' borderTop='1px' borderColor='txtColor' py='8px'>
+                    <Text color='txtColor' fontSize='2xl'>{tasks.findIndex(tsk => tsk.id === task.id) + 1}</Text>
+                    <Text color='txtColor' px='10px' w='90%'>{task.title}</Text>
+                    {task.type === "Important" &&
+                      <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='20px' />
+                    }
+                  </AccordionPanel>
 
-                  <Text color='txtColor' fontSize='2xl'>{tasks.findIndex(tsk => tsk.id === task.id) + 1}</Text>
-                  <Text color='txtColor' px='10px' w='90%'>{task.title}</Text>
-                  {task.type === "Important" &&
-                    <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='20px' />
-                  }
-                </Flex>
 
-                <Divider />
-              </Box>
-
-            )
-          })
-
-        }
+                )
+              })
+            }
+          </AccordionItem>
+        </Accordion>
       </Flex>
 
       <FormModal open={isOpen} close={onClose} />

@@ -4,13 +4,14 @@ import './App.css'
 import { TasksContext, TasksProvider } from "./Contexts/TaskContext"
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Toast } from "@chakra-ui/react";
 import TasksPage from "./Pages/TasksPage";
 import LoginPage from "./Pages/LoginPage";
 import { AuthProvider } from "./Contexts/Auth/AuthContext";
 import RequireAuth from "./Contexts/Auth/RequireAuth";
 import Home from "./Pages/Home";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient()
 
@@ -20,9 +21,10 @@ export const App = () => (
       <ChakraProvider theme={LightTheme}>
         <AuthProvider>
           <TasksProvider>
+            <Toaster position="bottom-center" reverseOrder={true} />
             <Routes>
               <Route path='/' element={<Home />} />
-              <Route path='/privatePage' element={<RequireAuth><TasksPage /></RequireAuth>} />
+              <Route path='/myTasks' element={<RequireAuth><TasksPage /></RequireAuth>} />
             </Routes>
           </TasksProvider>
         </AuthProvider>
