@@ -25,9 +25,13 @@ const Home = (props: Props) => {
             <Flex w='100%' p='20px' alignItems='center' justifyContent='space-between'>
                 <FontAwesomeIcon icon={faListCheck} fontSize='60px' color='#fff' />
                 <Flex>
-                    <Button bgColor='compBg' color='txtColor' mx='5px'
+
+                    <Button bgColor='compBg' color='txtColor' mx='5px' _hover={{}}
                         onClick={() => navigate('/myTasks')}>My Tasks</Button>
-                    <Button bgColor='compBg' color='txtColor' mx='5px'>Sign In</Button>
+
+                    <Button bgColor='compBg' color='txtColor' mx='5px' _hover={{}}
+                        onClick={() => navigate('/myTasks')}>Sign In</Button>
+                        
                 </Flex>
             </Flex>
             <Flex w='100%' justifyContent='space-between'>
@@ -44,46 +48,49 @@ const Home = (props: Props) => {
             <Flex>
                 <TasksCardsIMG />
             </Flex>
-            <Flex px='200px' pb='200px'>
-                <Heading color='txtColor' fontWeight='800' fontSize='60px' w='400px'>
+            <Flex px='150px' py='150px' w='100%' justifyContent='space-between'>
+                <Heading color='txtColor' fontWeight='700' fontSize='70px' w='400px'>
                     <Highlight query="customize" styles={{ color: 'txtY' }}>
                         Create and customize your tasks
                     </Highlight>
                 </Heading>
-                <SimpleGrid columns={2} spacing={4}>
+                <SimpleGrid columns={2} spacing={10} py='10px'>
 
                     <Flex w='100%' bgColor='compBg' px='20px' alignItems='center' borderRadius='10px' justifyContent='space-between'
                     >
                         <Flex alignItems='center'>
                             <FontAwesomeIcon icon={faList as IconProp} color='#d1d1d1' fontSize='35px' />
-                            <Text fontWeight='bold' color='txtColor' ml='10px' fontSize='35px'>All Tasks</Text>
+                            <Text fontWeight='bold' color='txtColor' ml='10px' fontSize='30px'>All Tasks</Text>
                         </Flex>
                     </Flex>
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
 
                     >
                         <Flex alignItems='center'>
-                            <FontAwesomeIcon icon={faListCheck as IconProp} color='#d1d1d1' fontSize='20px' />
-                            <Text fontWeight='bold' color='txtColor' ml='10px'>Done tasks</Text>
+                            <FontAwesomeIcon icon={faListCheck as IconProp} color='#d1d1d1' fontSize='35px' />
+                            <Text fontWeight='bold' color='txtColor' ml='10px' fontSize='30px'>Done tasks</Text>
                         </Flex>
                     </Flex>
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
 
                     >
                         <Flex alignItems='center'>
-                            <FontAwesomeIcon icon={faList12 as IconProp} color='#d1d1d1' fontSize='20px' />
-                            <Text fontWeight='bold' color='txtColor' ml='10px'>Pending</Text>
+                            <FontAwesomeIcon icon={faList12 as IconProp} color='#d1d1d1' fontSize='35px' />
+                            <Text fontWeight='bold' color='txtColor' ml='10px' fontSize='30px'>Pending</Text>
                         </Flex>
                     </Flex>
                     <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
 
                     >
                         <Flex alignItems='center'>
-                            <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='20px' />
-                            <Text fontWeight='bold' color='txtColor' ml='10px'>Important</Text>
+                            <FontAwesomeIcon icon={faCircleExclamation as IconProp} color='#d1d1d1' fontSize='35px' />
+                            <Text fontWeight='bold' color='txtColor' ml='10px' fontSize='30px'>Important</Text>
                         </Flex>
                     </Flex>
                 </SimpleGrid>
+            </Flex>
+            <Flex justifyContent='center' w='100%' p='50px'>
+                <Text color='txtColor'>andre v lopes</Text>
             </Flex>
 
         </Container>
