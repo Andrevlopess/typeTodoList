@@ -45,25 +45,25 @@ const Home = (props: Props) => {
                 <CheckListIMG />
             </Flex>
             <SimpleListIMG />
-            <Flex>
+            <Flex justifyContent='center'>
                 <TasksCardsIMG />
             </Flex>
-            <Flex px='150px' py='150px' w='100%' justifyContent='space-between'>
-                <Heading color='txtColor' fontWeight='700' fontSize='70px' w='400px'>
+            <Flex px='150px' py='150px' w='100%' justifyContent='space-between' flexWrap='wrap'>
+                <Heading color='txtColor' fontWeight='700' fontSize='70px' maxW='400px' mb='30px'>
                     <Highlight query="customize" styles={{ color: 'txtY' }}>
                         Create and customize your tasks
                     </Highlight>
                 </Heading>
-                <SimpleGrid columns={2} spacing={10} py='10px'>
+                <SimpleGrid minChildWidth='300px' w='100%' maxW='800px' spacing={10} py='10px'>
 
-                    <Flex w='100%' bgColor='compBg' px='20px' alignItems='center' borderRadius='10px' justifyContent='space-between'
+                    <Flex w='100%' bgColor='compBg' p='20px' alignItems='center' borderRadius='10px' justifyContent='space-between'
                     >
                         <Flex alignItems='center'>
                             <FontAwesomeIcon icon={faList as IconProp} color='#d1d1d1' fontSize='35px' />
                             <Text fontWeight='bold' color='txtColor' ml='10px' fontSize='30px'>All Tasks</Text>
                         </Flex>
                     </Flex>
-                    <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
+                    <Flex w='100%' bgColor='compBg' p='30px'  alignItems='center' borderRadius='10px' justifyContent='space-between'
 
                     >
                         <Flex alignItems='center'>
@@ -71,7 +71,7 @@ const Home = (props: Props) => {
                             <Text fontWeight='bold' color='txtColor' ml='10px' fontSize='30px'>Done tasks</Text>
                         </Flex>
                     </Flex>
-                    <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
+                    <Flex w='100%' bgColor='compBg' p='30px' alignItems='center' borderRadius='10px' justifyContent='space-between'
 
                     >
                         <Flex alignItems='center'>
@@ -79,7 +79,7 @@ const Home = (props: Props) => {
                             <Text fontWeight='bold' color='txtColor' ml='10px' fontSize='30px'>Pending</Text>
                         </Flex>
                     </Flex>
-                    <Flex w='100%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
+                    <Flex w='100%' bgColor='compBg' p='20px' alignItems='center' borderRadius='10px' justifyContent='space-between'
 
                     >
                         <Flex alignItems='center'>

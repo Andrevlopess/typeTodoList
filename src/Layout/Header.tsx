@@ -50,7 +50,7 @@ const Header = (props: Props) => {
       </Flex>
       <Divider />
       <VStack my='50px' spacing={6}>
-        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between' 
+        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
           onClick={() => getTasks()}
         >
           <Flex alignItems='center'>
@@ -109,10 +109,11 @@ const Header = (props: Props) => {
       <Flex flexDirection='column' justifyContent='center' w='100%' mb='30px' px='10px' my='20px'>
         <Accordion allowMultiple>
           <AccordionItem bgColor='desktopBg' borderRadius='5px' border='none'>
-            <AccordionButton w='100%' display='flex' justifyContent='space-between' >
-              <Text color='txtColor'>My Tasks</Text>
-              <FontAwesomeIcon icon={faChevronDown} color='#d1d1d1'/>
-            </AccordionButton>
+           
+              <AccordionButton w='100%' display='flex' justifyContent='space-between' >
+                <Text color='txtColor'>My Tasks</Text>
+                <FontAwesomeIcon icon={faChevronDown} color='#d1d1d1' />
+              </AccordionButton>
             {!!tasks.length &&
               tasks.map((task) => {
                 return (
@@ -128,7 +129,7 @@ const Header = (props: Props) => {
                 )
               })
             }
-          </AccordionItem>
+            </AccordionItem>
         </Accordion>
       </Flex>
 
