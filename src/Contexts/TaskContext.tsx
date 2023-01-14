@@ -97,10 +97,10 @@ export const TasksProvider = ({ children }: { children: JSX.Element[] }) => {
         getTasks()
         toast((t) => (
           <Flex alignItems='center'>
-            <FontAwesomeIcon icon={faEdit} color='#111' fontSize='15px'/>
+            <FontAwesomeIcon icon={faEdit} color='#111' fontSize='15px' />
             <Text mx='10px' color='desktopBg'>Task Updated</Text>
           </Flex>
-        ), {duration: 10000})
+        ), { duration: 10000 })
       })
     )
 
@@ -182,6 +182,10 @@ export const TasksProvider = ({ children }: { children: JSX.Element[] }) => {
       getTasks()
     }
   }, [currentUser])
+
+  // const { isLoading:novoNome } = useQuery("sla", async () => {
+
+  // })
 
   // * //////////////////////////////////////////////////////////////////////////////////////////////////    
 

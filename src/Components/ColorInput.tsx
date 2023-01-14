@@ -1,6 +1,4 @@
 import { Box, Flex, HStack, useRadio, useRadioGroup } from "@chakra-ui/react";
-import { render } from "@testing-library/react";
-import { log } from "console";
 
 // 1. Create a component that consumes the `useRadio` hook
 function RadioCard(props: any) {
@@ -11,12 +9,12 @@ function RadioCard(props: any) {
 
   return (
     <Box as="label">
-      <input {...input}/>
+      <input {...input} />
 
       <Box
         bgColor={props.color}
         {...checkbox}
-        borderColor = {props.color === props.currColor ? "white" : props.color}
+        borderColor={props.color === props.currColor ? "white" : props.color}
         cursor="pointer"
         borderWidth="2px"
         borderRadius="50%"
@@ -34,7 +32,6 @@ function RadioCard(props: any) {
     </Box>
   );
 }
-
 // Step 2: Use the `useRadioGroup` hook to control a group of custom radios.
 
 type InputTypes = {
@@ -53,7 +50,6 @@ function CardColorInput({ setColor, currColor }: InputTypes) {
     "cardGreen",
     "cardPink",
   ];
-
 
 
   const { getRootProps, getRadioProps } = useRadioGroup({

@@ -11,7 +11,8 @@ export const LightTheme  = extendTheme({
         desktopBg: '#1A1A1A',
         descColor: '#B2B2B2',
         compBg: '#242424',
-        txtColor: '#D9D9D9', 
+        txtColor: '#FFFFFF', 
+        txtY: '#FFB802', 
     
 
         cardRed: '#D2001A',

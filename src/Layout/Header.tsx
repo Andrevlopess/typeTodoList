@@ -50,7 +50,7 @@ const Header = (props: Props) => {
       </Flex>
       <Divider />
       <VStack my='50px' spacing={6}>
-        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between'
+        <Flex w='90%' bgColor='compBg' px='20px' py='10px' alignItems='center' borderRadius='10px' justifyContent='space-between' 
           onClick={() => getTasks()}
         >
           <Flex alignItems='center'>
