@@ -7,7 +7,6 @@ import { AuthContext } from '../Contexts/Auth/AuthContext'
 import { TasksContext } from '../Contexts/TaskContext'
 import SimpleListIMG from '../Images/SimpleListIMG'
 import { AuthContextType, TaskContextType } from '../types/Task'
-import { Navigate } from 'react-router-dom'
 import CheckListIMG from '../Images/CheckListIMG'
 import TasksCardsIMG from '../Images/TasksCardsIMG'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
@@ -36,7 +35,7 @@ const Home = (props: Props) => {
             </Flex>
             <Flex w='100%' justifyContent='space-between'>
                 <Flex flexDirection='column' w='100%' p='100px'>
-                    <Heading color='txtColor' fontWeight='900' fontSize='100px' mb='30px'>
+                    <Heading color='txtColor' fontWeight='900' fontSize='4.8em' mb='30px'>
                         <Highlight query='Todo' styles={{ color: 'txtY', fontWeight: '900' }}>TypeTodo</Highlight>
                     </Heading>
                     <Text color='txtColor' fontSize='25px'>Your website to manage your daily tasks!</Text>
@@ -48,7 +47,7 @@ const Home = (props: Props) => {
             <Flex justifyContent='center'>
                 <TasksCardsIMG />
             </Flex>
-            <Flex px='150px' py='150px' w='100%' justifyContent='space-between' flexWrap='wrap'>
+            <Flex px='40px'py='150px' w='100%' justifyContent='space-between' flexWrap='wrap' alignItems='center'>
                 <Heading color='txtColor' fontWeight='700' fontSize='70px' maxW='400px' mb='30px'>
                     <Highlight query="customize" styles={{ color: 'txtY' }}>
                         Create and customize your tasks
