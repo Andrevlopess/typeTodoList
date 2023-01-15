@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../Contexts/Auth/AuthContext'
-import { TasksContext } from '../Contexts/TaskContext'
-import SimpleListIMG from '../Images/SimpleListIMG'
 import { AuthContextType, TaskContextType } from '../types/Task'
 import CheckListIMG from '../Images/CheckListIMG'
 import TasksCardsIMG from '../Images/TasksCardsIMG'
@@ -42,7 +40,7 @@ const Home = (props: Props) => {
 
                 <CheckListIMG />
             </Flex>
-            <SimpleListIMG />
+
             <Flex justifyContent='center'>
                 <TasksCardsIMG />
             </Flex>
