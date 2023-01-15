@@ -21,8 +21,7 @@ const Home = (props: Props) => {
 
     return (
         <Container maxW='none' w='100%' minH='100vh' bgColor='desktopBg' m='0' p='0'>
-            <Flex w='100%' p='20px' alignItems='center' justifyContent='space-between'>
-                <FontAwesomeIcon icon={faListCheck} fontSize='60px' color='#fff' />
+            <Flex w='100%' p='20px' alignItems='center' justifyContent='flex-end'>
                 <Flex>
 
                     <Button bgColor='compBg' color='txtColor' mx='5px' _hover={{}}
