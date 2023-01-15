@@ -12,6 +12,7 @@ import RequireAuth from "./Contexts/Auth/RequireAuth";
 import Home from "./Pages/Home";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
+import SignUpPage from "./Pages/SignUpPage";
 
 const queryClient = new QueryClient()
 
@@ -24,6 +25,7 @@ export const App = () => (
             <Toaster position="bottom-center" reverseOrder={true} />
             <Routes>
               <Route path='/' element={<Home />} />
+              <Route path='/signUp' element={<SignUpPage />} />
               <Route path='/myTasks' element={<RequireAuth><TasksPage /></RequireAuth>} />
             </Routes>
           </TasksProvider>

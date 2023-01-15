@@ -31,6 +31,8 @@ export type TaskContextType = {
 
 export type AuthContextType = {
     currentUser: User | null;
-    cleanUser: () => void
-    signInWithGoogle: () => void
+    cleanUser: () => void;
+    signInWithGoogle: () => void;
+    createUser: (email: string, password: string) => void;
+    signInWithEmail: (email: string, password: string) => void;
 }
