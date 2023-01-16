@@ -44,7 +44,7 @@ const Header = (props: Props) => {
             <Text color='txtColor' mx='10px'>{currentUser && currentUser.displayName}</Text>
           </Flex>
 
-          <FontAwesomeIcon icon={faUserMinus as IconProp} color='#d1d1d1' onClick={cleanUser} />
+          <FontAwesomeIcon icon={faUser as IconProp} color='#d1d1d1' onClick={cleanUser} />
         </Flex>
 
       </Flex>
@@ -117,7 +117,7 @@ const Header = (props: Props) => {
             {!!tasks.length &&
               tasks.map((task) => {
                 return (
-                  <AccordionPanel display='flex' alignItems='center' borderTop='1px' borderColor='txtColor' py='8px'>
+                  <AccordionPanel display='flex' alignItems='center' borderTop='1px' borderColor='txtColor' py='8px' key={task.id}>
                     <Text color='txtColor' fontSize='2xl'>{tasks.findIndex(tsk => tsk.id === task.id) + 1}</Text>
                     <Text color='txtColor' px='10px' w='90%'>{task.title}</Text>
                     {task.type === "Important" &&

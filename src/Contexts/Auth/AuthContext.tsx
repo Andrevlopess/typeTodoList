@@ -44,9 +44,9 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   function createUser(email: string, password: string) {
     setNewUserLoading(true)
     createUserWithEmailAndPassword(auth, email, password)
-      .then((user) => {
-       console.log(user);
-       
+      .then((userCredential) => {
+        setCurrentUser(userCredential.user)
+
         setNewUserLoading(false)
       })
       .catch((err) => {
@@ -59,13 +59,13 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     setSignInLoading(true)
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
+        setCurrentUser(userCredential.user)
         setSignInLoading(false)
       })
       .catch((err) => {
-         setSignInError(err.code)
-         setSignInLoading(false)
-        }
+        setSignInError(err.code)
+        setSignInLoading(false)
+      }
       )
 
   }

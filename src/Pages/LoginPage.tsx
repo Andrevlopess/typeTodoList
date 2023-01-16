@@ -11,6 +11,9 @@ import {
     Heading,
     Image,
     Input,
+    InputGroup,
+    InputLeftElement,
+    InputRightElement,
     Link,
     Show,
     Spinner,
@@ -19,7 +22,7 @@ import {
 import { AuthContext } from "../Contexts/Auth/AuthContext";
 import { AuthContextType } from "../types/Task";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faEnvelope, faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import GoogleLogo from "../Images/GoogleLogo.png";
 import SimpleYList from "../Images/SimpleYList";
 import ListLoginIMG from "../Images/ListLoginIMG";
@@ -31,6 +34,9 @@ type Props = {};
 const LoginPage = (props: Props) => {
 
     const { signInWithGoogle, signInWithEmail, signInLoading, signInError } = useContext(AuthContext) as AuthContextType;
+
+    const [show, setShow] = useState(false)
+    const handleClick = () => setShow(!show)
 
     const navigate = useNavigate();
 
@@ -62,13 +68,29 @@ const LoginPage = (props: Props) => {
 
             <Flex w="100%" flexWrap="wrap" justifyContent="center">
                 <Flex flexDirection="column">
-                    <Flex flexDirection="column" px="80px">
+                    <Flex flexDirection="column" px="80px" alignItems='center'>
                         <Heading fontSize="5rem" color="txtY" fontWeight="800" mb="60px">
                             Sign in
                         </Heading>
-                        <Text fontSize="30px" color="txtColor" fontWeight="800" mb="80px">
+                        <Text fontSize="30px" color="txtColor" fontWeight="800" mb="40px">
                             Login to access your tasks
                         </Text>
+                    </Flex>
+                    <Flex
+                        bgColor="desktopBg"
+                        p="10px"
+                        px="20px"
+                        mb='20px'
+                        borderRadius="15px"
+                        alignItems="center"
+                        cursor="pointer"
+                        justifyContent="center"
+                        flexDirection='column'
+                    >
+                        <Text color='txtColor'>Dont have an account?</Text>
+                        <Button bgColor='compBg' color='txtColor' my='10px'
+                            onClick={() => navigate('/signUp')}
+                        >Create account</Button>
                     </Flex>
                 </Flex>
                 <Flex
@@ -90,24 +112,30 @@ const LoginPage = (props: Props) => {
                     >
                         <Flex flexDirection="column" my="15px">
 
-                            <FormControl 
-                            isInvalid={signInError === 'auth/invalid-email' 
-                            || signInError === 'auth/user-not-found' }>
+                            <FormControl
+                                isInvalid={signInError === 'auth/invalid-email'
+                                    || signInError === 'auth/user-not-found'}>
 
                                 <Text color="txtColor" pl="6px" py="10px">
                                     Email
                                 </Text>
-                                <Input
-                                    required
-                                    id='email'
-                                    name='email'
-                                    type="text"
-                                    color="txtColor"
-                                    border="none"
-                                    bgColor="desktopBg"
-                                    value={formik.values.email}
-                                    onChange={formik.handleChange}
-                                />
+                                <InputGroup>
+                                    <InputLeftElement
+                                        pointerEvents='none'
+                                        children={<FontAwesomeIcon icon={faEnvelope} color='#d1d1d1' />} />
+                                    <Input
+                                        required
+                                        id='email'
+                                        name='email'
+                                        type="text"
+                                        color="txtColor"
+                                        border="none"
+                                        bgColor="desktopBg"
+                                        value={formik.values.email}
+                                        onChange={formik.handleChange}
+                                    />
+                                </InputGroup>
+
                                 {signInError === 'auth/invalid-email' &&
                                     <FormErrorMessage>Invalid email</FormErrorMessage>
                                 }
@@ -121,20 +149,33 @@ const LoginPage = (props: Props) => {
                                 <Text color="txtColor" pl="6px" py="10px">
                                     Password
                                 </Text>
-                                <Input
-                                    required
-                                    id='password'
-                                    name='password'
-                                    type="password"
-                                    color="txtColor"
-                                    border="none"
-                                    bgColor="desktopBg"
-                                    autoComplete="on"
-                                    value={formik.values.password}
-                                    onChange={formik.handleChange}
-                                />
+                                <InputGroup>
+                                    <InputLeftElement
+                                        pointerEvents='none'
+                                        children={<FontAwesomeIcon icon={faLock} color='#d1d1d1' />}
+                                    />
+                                    <Input
+                                        required
+                                        id='password'
+                                        name='password'
+                                        type={show ? "text" : "password"}
+                                        color="txtColor"
+                                        border="none"
+                                        bgColor="desktopBg"
+                                        autoComplete="on"
+                                        value={formik.values.password}
+                                        onChange={formik.handleChange}
+                                    />
+                                    <InputRightElement bgColor='transparent' onClick={handleClick}>
+                                        {show ?
+                                            <FontAwesomeIcon icon={faEyeSlash} color='#d1d1d1' />
+                                            : <FontAwesomeIcon icon={faEye} color='#d1d1d1' />}
+                                    </InputRightElement>
+                                </InputGroup>
+
+
                                 {signInError === 'auth/wrong-password' &&
-                                   <FormErrorMessage>Wrong password</FormErrorMessage>
+                                    <FormErrorMessage>Wrong password</FormErrorMessage>
                                 }
                             </FormControl>
 
@@ -164,24 +205,6 @@ const LoginPage = (props: Props) => {
                             <Image src={GoogleLogo} boxSize="40px" />
                             <Text color="txtColor" pl="15px">
                                 Sign in with Google
-                            </Text>
-                        </Flex>
-                        <Flex
-                            my="15px"
-                            bgColor="desktopBg"
-                            p="10px"
-                            px="20px"
-                            borderRadius="15px"
-                            alignItems="center"
-                            cursor="pointer"
-                            justifyContent="center"
-                        >
-                            <Text
-                                color="txtColor"
-                                textAlign="center"
-                                onClick={() => navigate("/signUp")}
-                            >
-                                Create account
                             </Text>
                         </Flex>
                     </form>

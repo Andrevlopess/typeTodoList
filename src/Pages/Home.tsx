@@ -44,8 +44,8 @@ const Home = (props: Props) => {
             <Flex justifyContent='center'>
                 <TasksCardsIMG />
             </Flex>
-            <Flex px='60px'py='150px' w='100%' justifyContent='space-between' flexWrap='wrap' alignItems='center'>
-                <Heading color='txtColor' fontWeight='700' fontSize='70px' maxW='400px' mb='30px'>
+            <Flex px='50px' py='150px' w='100%' justifyContent='space-between' flexWrap='wrap' alignItems='center'>
+                <Heading color='txtColor' fontWeight='700' fontSize='60px' maxW='400px' mb='30px'>
                     <Highlight query="customize" styles={{ color: 'txtY' }}>
                         Create and customize your tasks
                     </Highlight>
@@ -94,12 +94,3 @@ const Home = (props: Props) => {
 }
 
 export default Home
-
-// {
-//     !currentUser &&
-//     <Button>
-//         <Link to='/myTasks'>
-//             Login
-//         </Link>
-//     </Button>
-// }
