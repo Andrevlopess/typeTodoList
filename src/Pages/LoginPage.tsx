@@ -6,11 +6,14 @@ import {
     Center,
     Container,
     Flex,
+    FormControl,
+    FormErrorMessage,
     Heading,
     Image,
     Input,
     Link,
     Show,
+    Spinner,
     Text,
 } from "@chakra-ui/react";
 import { AuthContext } from "../Contexts/Auth/AuthContext";
@@ -27,7 +30,7 @@ type Props = {};
 
 const LoginPage = (props: Props) => {
 
-    const { signInWithGoogle, signInWithEmail } = useContext(AuthContext) as AuthContextType;
+    const { signInWithGoogle, signInWithEmail, signInLoading, signInError } = useContext(AuthContext) as AuthContextType;
 
     const navigate = useNavigate();
 
@@ -86,39 +89,64 @@ const LoginPage = (props: Props) => {
                         }}
                     >
                         <Flex flexDirection="column" my="15px">
-                            <Text color="txtColor" pl="6px" py="10px">
-                                Email
-                            </Text>
-                            <Input
-                                required
-                                id='email'
-                                name='email'
-                                type="text"
-                                color="txtColor"
-                                border="none"
-                                bgColor="desktopBg"
-                                value={formik.values.email}
-                                onChange={formik.handleChange}
-                            />
+
+                            <FormControl 
+                            isInvalid={signInError === 'auth/invalid-email' 
+                            || signInError === 'auth/user-not-found' }>
+
+                                <Text color="txtColor" pl="6px" py="10px">
+                                    Email
+                                </Text>
+                                <Input
+                                    required
+                                    id='email'
+                                    name='email'
+                                    type="text"
+                                    color="txtColor"
+                                    border="none"
+                                    bgColor="desktopBg"
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                />
+                                {signInError === 'auth/invalid-email' &&
+                                    <FormErrorMessage>Invalid email</FormErrorMessage>
+                                }
+                                {signInError === 'auth/user-not-found' &&
+                                    <FormErrorMessage>User not found</FormErrorMessage>
+                                }
+                            </FormControl>
                         </Flex>
                         <Flex flexDirection="column" my="15px">
-                            <Text color="txtColor" pl="6px" py="10px">
-                                Password
-                            </Text>
-                            <Input
-                                required
-                                id='password'
-                                name='password'
-                                type="password"
-                                color="txtColor"
-                                border="none"
-                                bgColor="desktopBg"
-                                value={formik.values.password}
-                                onChange={formik.handleChange}
-                            />
+                            <FormControl isInvalid={signInError === 'auth/wrong-password'}>
+                                <Text color="txtColor" pl="6px" py="10px">
+                                    Password
+                                </Text>
+                                <Input
+                                    required
+                                    id='password'
+                                    name='password'
+                                    type="password"
+                                    color="txtColor"
+                                    border="none"
+                                    bgColor="desktopBg"
+                                    autoComplete="on"
+                                    value={formik.values.password}
+                                    onChange={formik.handleChange}
+                                />
+                                {signInError === 'auth/wrong-password' &&
+                                   <FormErrorMessage>Wrong password</FormErrorMessage>
+                                }
+                            </FormControl>
+
                         </Flex>
                         <Flex flexDirection="column" my="15px">
-                            <Button type="submit">Sign in</Button>
+                            <Button type="submit">
+                                {signInLoading ?
+                                    <Spinner color='desktopBg' boxSize='25px' />
+                                    :
+                                    "Sign in"
+                                }
+                            </Button>
                         </Flex>
                         <Text textAlign="center" color="txtColor">
                             or
@@ -153,7 +181,7 @@ const LoginPage = (props: Props) => {
                                 textAlign="center"
                                 onClick={() => navigate("/signUp")}
                             >
-                                Create an account
+                                Create account
                             </Text>
                         </Flex>
                     </form>

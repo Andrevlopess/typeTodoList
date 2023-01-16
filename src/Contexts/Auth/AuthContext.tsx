@@ -18,6 +18,11 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const [newUserError, setNewUserError] = useState<string | null>(null)
+  const [newUserLoading, setNewUserLoading] = useState<boolean>(false)
+  const [signInError, setSignInError] = useState<string | null>(null)
+  const [signInLoading, setSignInLoading] = useState<boolean>(false)
+
   const navigate = useNavigate()
 
   function signInWithGoogle() {
@@ -37,34 +42,34 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   }
 
   function createUser(email: string, password: string) {
+    setNewUserLoading(true)
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
-
+      .then((user) => {
+       console.log(user);
+       
+        setNewUserLoading(false)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setNewUserError(err.code)
+        setNewUserLoading(false)
+      })
   }
 
   function signInWithEmail(email: string, password: string) {
+    setSignInLoading(true)
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        setSignInLoading(false)
       })
       .catch((err) => {
-        const errCode = err.code
-        console.log(errCode);
-        
-        switch (errCode) {
-          case 'auth/wrong-password':
-            console.log('senha errada patrao');
-            break;    
-          case 'auth/invalid-email':
-            console.log('email invalido filho');
-            break;    
-       }
-      })
+         setSignInError(err.code)
+         setSignInLoading(false)
+        }
+      )
 
   }
+
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -73,7 +78,19 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ currentUser, cleanUser, signInWithGoogle, createUser, signInWithEmail }}>
+    <AuthContext.Provider value={{
+      currentUser,
+      cleanUser,
+      signInWithGoogle,
+
+      signInWithEmail,
+      signInLoading,
+      signInError,
+
+      createUser,
+      newUserError,
+      newUserLoading
+    }}>
       {children}
     </AuthContext.Provider>
   )

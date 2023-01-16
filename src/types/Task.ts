@@ -33,6 +33,10 @@ export type AuthContextType = {
     currentUser: User | null;
     cleanUser: () => void;
     signInWithGoogle: () => void;
+    newUserError: string | null;
+    signInError: string | null;
+    newUserLoading: boolean;
+    signInLoading: boolean;
     createUser: (email: string, password: string) => void;
     signInWithEmail: (email: string, password: string) => void;
 }

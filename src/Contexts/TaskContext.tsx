@@ -48,8 +48,6 @@ export const TasksProvider = ({ children }: { children: JSX.Element[] }) => {
       const tasksSnapshot = await getDocs(TasksCol);
       const taskList = tasksSnapshot.docs.map(doc => doc.data());
 
-      console.log("atualizado");
-
       if (taskList) {
         setTasks(taskList as ITask[])
         setIsLoading(false)
