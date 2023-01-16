@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   User,
+  updateProfile,
   signOut,
   getAuth
 } from "firebase/auth";
@@ -70,6 +71,35 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   }
 
+  function updateUserName(newName: string) {
+
+    const auth = getAuth()
+
+    if (auth.currentUser !== null) {
+      updateProfile(auth.currentUser, {
+        displayName: newName
+      }).then((res) => {console.log(res);
+      })
+        .catch((err) => {console.log(err);
+        })
+    }
+
+
+  }
+  function updateUserPhoto(url: string) {
+
+    const auth = getAuth()
+
+    if (auth.currentUser !== null) {
+      updateProfile(auth.currentUser, {
+        photoURL: url
+      }).then(()=> {console.log(`atualizadin`, url);
+      })
+        .catch((err) => {console.log(err);
+        })
+    }
+  }
+  
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -86,6 +116,9 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       signInWithEmail,
       signInLoading,
       signInError,
+
+      updateUserName,
+      updateUserPhoto,
 
       createUser,
       newUserError,

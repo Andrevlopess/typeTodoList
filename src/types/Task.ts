@@ -37,6 +37,10 @@ export type AuthContextType = {
     signInError: string | null;
     newUserLoading: boolean;
     signInLoading: boolean;
+
+    updateUserName: (newName: string) => void
+    updateUserPhoto: (url:string) => void
+
     createUser: (email: string, password: string) => void;
     signInWithEmail: (email: string, password: string) => void;
 }
