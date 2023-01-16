@@ -17,6 +17,7 @@ import FormModal from '../Components/FormModal'
 import { AuthContextType, TaskContextType } from '../types/Task'
 import { TasksContext } from '../Contexts/TaskContext'
 import { AuthContext } from '../Contexts/Auth/AuthContext'
+import AccountSettingDrawer from '../Components/AccountSettingsDrawer'
 
 type Props = {}
 
@@ -44,7 +45,7 @@ const Header = (props: Props) => {
             <Text color='txtColor' mx='10px'>{currentUser && currentUser.displayName}</Text>
           </Flex>
 
-          <FontAwesomeIcon icon={faUser as IconProp} color='#d1d1d1' onClick={cleanUser} />
+          <AccountSettingDrawer/>
         </Flex>
 
       </Flex>
