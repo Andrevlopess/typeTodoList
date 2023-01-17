@@ -2,7 +2,7 @@ import { getFirestore, collection, getDocs, addDoc, doc, updateDoc } from "fireb
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from "firebase/app";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-
+import {getStorage} from 'firebase/storage'
 
 const firebaseConfig = initializeApp({
     apiKey: "AIzaSyBnv5fqI6pyNyjo37cuH9Kxkoot8RsTNjY",
@@ -19,6 +19,8 @@ export const auth = getAuth(firebaseConfig)
 export const db = getFirestore(firebaseConfig)
 
 export const TasksCollectionRef = collection(db, "Tasks");
+
+export const storage = getStorage(firebaseConfig);
 
 
 

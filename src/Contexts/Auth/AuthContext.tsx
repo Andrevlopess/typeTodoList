@@ -10,7 +10,8 @@ import {
 } from "firebase/auth";
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../Services/Firebase";
+import { auth, storage } from "../../Services/Firebase";
+import {ref, uploadBytes} from 'firebase/storage'
 import { AuthContextType } from "../../types/Task";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -99,8 +100,16 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         })
     }
   }
-  
 
+  function storageTeste(url:Blob){
+    const storageRef = ref(storage, "teste");
+    uploadBytes(storageRef, url).then((snapshot) => {
+      console.log('uploaded')
+    } )
+  }
+
+  console.log(currentUser);
+  
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user)
@@ -119,6 +128,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
       updateUserName,
       updateUserPhoto,
+      storageTeste,
 
       createUser,
       newUserError,
