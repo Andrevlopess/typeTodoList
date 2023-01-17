@@ -40,7 +40,6 @@ export type AuthContextType = {
 
     updateUserName: (newName: string) => void
     updateUserPhoto: (url:string) => void
-    storageTeste: (url:Blob) => void;
 
     createUser: (email: string, password: string) => void;
     signInWithEmail: (email: string, password: string) => void;

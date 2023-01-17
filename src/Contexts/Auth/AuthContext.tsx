@@ -101,14 +101,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
   }
 
-  function storageTeste(url:Blob){
-    const storageRef = ref(storage, "teste");
-    uploadBytes(storageRef, url).then((snapshot) => {
-      console.log('uploaded')
-    } )
-  }
-
-  console.log(currentUser);
+  
   
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -128,7 +121,6 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
       updateUserName,
       updateUserPhoto,
-      storageTeste,
 
       createUser,
       newUserError,
