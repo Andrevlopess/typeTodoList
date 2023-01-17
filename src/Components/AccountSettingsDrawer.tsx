@@ -71,7 +71,7 @@ const AccountSettingDrawer = (props: Props) => {
         preview: URL.createObjectURL(file)
       }))
 
-      
+
 
       setImg(ImgUrl[0].preview);
     }
