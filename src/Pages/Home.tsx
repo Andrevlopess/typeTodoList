@@ -48,7 +48,7 @@ const Home = (props: Props) => {
                 </Flex>
             </Show>
             <Show breakpoint='(max-width: 500px)'>
-                <Flex w='100%'>
+                <Flex w='100%' mx='0' px='0'>
                     <MobileTasksCard />
                 </Flex>
             </Show>
