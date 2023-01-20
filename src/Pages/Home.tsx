@@ -1,4 +1,4 @@
-import { Button, Center, Container, Flex, Heading, Highlight, SimpleGrid, Text } from '@chakra-ui/react'
+import { Button, Center, Container, Flex, Heading, Highlight, Show, SimpleGrid, Text } from '@chakra-ui/react'
 import { faCircleExclamation, faList, faList12, faListCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext } from 'react'
@@ -8,6 +8,7 @@ import { AuthContextType, TaskContextType } from '../types/Task'
 import CheckListIMG from '../Images/CheckListIMG'
 import TasksCardsIMG from '../Images/TasksCardsIMG'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { MobileTasksCard } from '../Images/MobileTasksCards'
 
 type Props = {}
 
@@ -27,11 +28,11 @@ const Home = (props: Props) => {
 
                     <Button bgColor='compBg' color='txtColor' mx='5px' _hover={{}}
                         onClick={() => navigate('/myTasks')}>Sign In</Button>
-                        
+
                 </Flex>
             </Flex>
             <Flex w='100%' justifyContent='space-between'>
-                <Flex flexDirection='column' w='100%' p='100px'>
+                <Flex flexDirection='column' w='100%' p='60px'>
                     <Heading color='txtColor' fontWeight='900' fontSize='4.8em' mb='30px'>
                         <Highlight query='Todo' styles={{ color: 'txtY', fontWeight: '900' }}>TypeTodo</Highlight>
                     </Heading>
@@ -41,9 +42,17 @@ const Home = (props: Props) => {
                 <CheckListIMG />
             </Flex>
 
-            <Flex justifyContent='center'>
-                <TasksCardsIMG />
-            </Flex>
+            <Show breakpoint='(min-width: 500px)'>
+                <Flex justifyContent='center'>
+                    <TasksCardsIMG />
+                </Flex>
+            </Show>
+            <Show breakpoint='(max-width: 500px)'>
+                <Flex w='100%'>
+                    <MobileTasksCard />
+                </Flex>
+            </Show>
+
             <Flex px='50px' py='150px' w='100%' justifyContent='space-between' flexWrap='wrap' alignItems='center'>
                 <Heading color='txtColor' fontWeight='700' fontSize='60px' maxW='400px' mb='30px'>
                     <Highlight query="customize" styles={{ color: 'txtY' }}>
@@ -59,7 +68,7 @@ const Home = (props: Props) => {
                             <Text fontWeight='bold' color='txtColor' ml='10px' fontSize='30px'>All Tasks</Text>
                         </Flex>
                     </Flex>
-                    <Flex w='100%' bgColor='compBg' p='30px'  alignItems='center' borderRadius='10px' justifyContent='space-between'
+                    <Flex w='100%' bgColor='compBg' p='30px' alignItems='center' borderRadius='10px' justifyContent='space-between'
 
                     >
                         <Flex alignItems='center'>
