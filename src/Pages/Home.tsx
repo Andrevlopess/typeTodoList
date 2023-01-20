@@ -43,12 +43,12 @@ const Home = (props: Props) => {
             </Flex>
 
             <Show breakpoint='(min-width: 500px)'>
-                <Flex justifyContent='center'>
+                <Flex justifyContent='center' my='-200px'>
                     <TasksCardsIMG />
                 </Flex>
             </Show>
             <Show breakpoint='(max-width: 500px)'>
-                <Flex w='100%' mx='0' px='0'>
+                <Flex w='100%' mx='0' px='0' my='-500px'>
                     <MobileTasksCard />
                 </Flex>
             </Show>
