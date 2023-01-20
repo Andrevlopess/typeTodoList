@@ -10,7 +10,7 @@
 ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
 ![Chakra](https://img.shields.io/badge/chakra-%234ED1C5.svg?style=for-the-badge&logo=chakraui&logoColor=white)
 #
-#🖼️ TypeTodo
+# 🖼️ TypeTodo
 ![image](https://user-images.githubusercontent.com/99695454/213781669-1e83725c-2933-4be8-b022-8b2fbca8cad9.png)
 # Sign in
 ![image](https://user-images.githubusercontent.com/99695454/213781767-9ecb3712-3a53-4012-9e30-5d2f20339e9e.png)
