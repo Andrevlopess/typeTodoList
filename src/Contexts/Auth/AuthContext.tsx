@@ -63,6 +63,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       .then((userCredential) => {
         setCurrentUser(userCredential.user)
         setSignInLoading(false)
+        setSignInError('')
       })
       .catch((err) => {
         setSignInError(err.code)
@@ -87,20 +88,6 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
 
   }
-  function updateUserPhoto(url: string) {
-
-    const auth = getAuth()
-
-    if (auth.currentUser !== null) {
-      updateProfile(auth.currentUser, {
-        photoURL: url
-      }).then(()=> {console.log(`atualizadin`, url);
-      })
-        .catch((err) => {console.log(err);
-        })
-    }
-  }
-
   
   
   useEffect(() => {
@@ -120,7 +107,6 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       signInError,
 
       updateUserName,
-      updateUserPhoto,
 
       createUser,
       newUserError,

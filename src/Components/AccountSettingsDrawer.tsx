@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Drawer,
   DrawerBody,
@@ -19,7 +19,6 @@ import {
   InputRightElement,
   FormControl,
   FormErrorMessage,
-  Center,
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faEdit, faUser, faUserMinus } from '@fortawesome/free-solid-svg-icons'
@@ -28,18 +27,15 @@ import { AuthContext } from '../Contexts/Auth/AuthContext'
 import { AuthContextType, TaskContextType } from '../types/Task'
 import { TasksContext } from '../Contexts/TaskContext'
 import { useFormik } from 'formik'
-import { useDropzone } from 'react-dropzone'
-import { useFetcher } from 'react-router-dom'
 
 type Props = {}
 
 const AccountSettingDrawer = (props: Props) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  
-  const { currentUser, cleanUser, updateUserName, updateUserPhoto } = useContext(AuthContext) as AuthContextType
-  
-  const [img, setImg] = useState<any>(currentUser?.photoURL)
+
+  const { currentUser, cleanUser, updateUserName } = useContext(AuthContext) as AuthContextType
+
   const { tasks } = useContext(TasksContext) as TaskContextType
   const [newNameError, setNewNameError] = useState<string | null>(null)
 
@@ -59,34 +55,6 @@ const AccountSettingDrawer = (props: Props) => {
     }
   })
 
-  console.log(img);
-  
-
-  const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
-    accept: {
-      'image/*': ['.jpeg', '.png']
-    },
-    onDrop: (acceptedFiles: any) => {
-      const ImgUrl = acceptedFiles.map((file: any) => Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      }))
-
-
-
-      setImg(ImgUrl[0].preview);
-    }
-  })
-
-
-  function handleUpPhoto() {
-    if (img) {
-      updateUserPhoto(img)
-      setImg(currentUser?.photoURL)
-    }
-  }
-
-  useEffect(()=>{console.log('mudou pain');
-  }, [currentUser?.photoURL])
 
   return (
     <>
@@ -99,33 +67,15 @@ const AccountSettingDrawer = (props: Props) => {
             <Text>My account</Text>
           </DrawerHeader>
           <DrawerBody>
+
             <Flex w='100%' justifyContent='center' my='20px' flexDirection='column' alignItems='center'>
-              <Flex w='100%' justifyContent='flex-end'>
-                {img !== currentUser?.photoURL &&
-                  <Center onClick={handleUpPhoto} border='2px solid white' borderRadius='50%' p='10px'>
-                    <FontAwesomeIcon icon={faCheck} color='#d1d1d1' />
-                  </Center>
-                }
-              </Flex>
 
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                <Avatar
-                  name={`${currentUser && currentUser.displayName}`}
-                  src={`${img}`}
-                  boxSize='130px'>
-                  <AvatarBadge bgColor='desktopBg' boxSize='2.4em'>
-                    {isDragActive ?
-                      <Center onClick={handleUpPhoto}>
-                        <FontAwesomeIcon icon={faCheck} color='#d1d1d1' />
-                      </Center>
+              <Avatar
+                name={`${currentUser && currentUser.displayName}`}
+                src={`${currentUser && currentUser.photoURL}`}
+                boxSize='130px'>
+              </Avatar>
 
-                      :
-                      <FontAwesomeIcon icon={faEdit} color='#d1d1d1' />
-                    }
-                  </AvatarBadge>
-                </Avatar>
-              </div>
               <Flex justifyContent='center' my='40px' flexDirection='column'>
                 <form onSubmit={(e) => {
                   e.preventDefault();

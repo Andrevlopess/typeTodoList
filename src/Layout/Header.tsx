@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Avatar, Box, Button, Center, Container, Divider, Flex, Heading, ModalOverlay, Spacer, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Avatar, Box, Button, Center, Container, Divider, Flex, Heading, Image, ModalOverlay, Spacer, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -25,7 +25,9 @@ const Header = (props: Props) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const { currentUser, cleanUser } = useContext(AuthContext) as AuthContextType
+  const { currentUser } = useContext(AuthContext) as AuthContextType
+  console.log(currentUser);
+
 
   const {
     tasks,
@@ -40,12 +42,11 @@ const Header = (props: Props) => {
 
           <Flex alignItems='center'>
             <Avatar
-              name={`${currentUser && currentUser.displayName}`}
-              src={`${currentUser && currentUser.photoURL}`} />
+              name={`${currentUser?.displayName}`}
+              src={`${currentUser?.photoURL}`} />
             <Text color='txtColor' mx='10px'>{currentUser && currentUser.displayName}</Text>
           </Flex>
-
-          <AccountSettingDrawer/>
+          <AccountSettingDrawer />
         </Flex>
 
       </Flex>
@@ -110,11 +111,14 @@ const Header = (props: Props) => {
       <Flex flexDirection='column' justifyContent='center' w='100%' mb='30px' px='10px' my='20px'>
         <Accordion allowMultiple>
           <AccordionItem bgColor='desktopBg' borderRadius='5px' border='none'>
-           
-              <AccordionButton w='100%' display='flex' justifyContent='space-between' >
-                <Text color='txtColor'>My Tasks</Text>
-                <FontAwesomeIcon icon={faChevronDown} color='#d1d1d1' />
-              </AccordionButton>
+
+            <AccordionButton w='100%' display='flex' justifyContent='space-between' >
+              <Text color='txtColor'>My Tasks</Text>
+              {!!tasks.length ? <FontAwesomeIcon icon={faChevronDown} color='#d1d1d1' /> :
+                <Flex onClick={() => onOpen()}>
+                  <FontAwesomeIcon icon={faPlus} color='#d1d1d1' />
+                </Flex>}
+            </AccordionButton>
             {!!tasks.length &&
               tasks.map((task) => {
                 return (
@@ -130,7 +134,7 @@ const Header = (props: Props) => {
                 )
               })
             }
-            </AccordionItem>
+          </AccordionItem>
         </Accordion>
       </Flex>
 
