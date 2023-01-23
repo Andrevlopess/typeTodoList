@@ -4,4 +4,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    background: #1A1A1A;
+    width: 8px;
+}
+::-webkit-scrollbar-thumb{
+    background: #d1d1d1;
+    border-radius: 10px;
 }

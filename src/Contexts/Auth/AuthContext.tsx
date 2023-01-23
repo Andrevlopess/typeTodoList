@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setCurrentUser(userCredential.user)
-
+        navigate('/myTasks')
         setNewUserLoading(false)
       })
       .catch((err) => {
