@@ -1,10 +1,10 @@
-import { Button, Center, Container, Flex, Heading, Highlight, Show, SimpleGrid, Text } from '@chakra-ui/react'
+import { Button,  Container, Flex, Heading, Highlight, Show, SimpleGrid, Text } from '@chakra-ui/react'
 import { faCircleExclamation, faList, faList12, faListCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../Contexts/Auth/AuthContext'
-import { AuthContextType, TaskContextType } from '../types/Task'
+import { AuthContextType } from '../types/Task'
 import CheckListIMG from '../Images/CheckListIMG'
 import TasksCardsIMG from '../Images/TasksCardsIMG'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
@@ -16,7 +16,6 @@ const Home = (props: Props) => {
 
     const navigate = useNavigate()
 
-    const { currentUser } = useContext(AuthContext) as AuthContextType
 
     return (
         <Container maxW='none' w='100%' minH='100vh' bgColor='desktopBg' m='0' p='0'>

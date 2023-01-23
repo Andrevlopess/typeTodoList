@@ -1,13 +1,7 @@
 import {
-    Box,
-    ChakraProvider,
     Container,
     Flex,
-    Grid,
-    Image,
     Show,
-    SimpleGrid,
-    useMediaQuery,
 } from "@chakra-ui/react"
 import Header from "../Layout/Header"
 import Main from "../Layout/Main"

@@ -1,6 +1,4 @@
-import React, { useContext, useState } from "react";
-import { signInWithPopup, GoogleAuthProvider, User } from "firebase/auth";
-import { auth } from "../Services/Firebase";
+import { useContext, useState } from "react";
 import {
     Button,
     Center,
@@ -14,8 +12,6 @@ import {
     InputGroup,
     InputLeftElement,
     InputRightElement,
-    Link,
-    Show,
     Spinner,
     Text,
 } from "@chakra-ui/react";
